@@ -69,19 +69,5 @@ public class personaje {
 		this.eficacia = eficacia;
 	}
 
-	protected int calcularDMG(String fisico1, String fisico2, String magico1, String magico2, boolean eficaz) {
-		int f1 = Integer.parseInt(fisico1);   
-		int f2 = Integer.parseInt(fisico2);
-		int m1 = Integer.parseInt(magico1);
-		int m2 = Integer.parseInt(magico2);
-		int totalDMG;
-		
-		totalDMG = f1 + f2 + m1 + m2;
-		
-		if (eficaz == true) totalDMG = totalDMG * 2;
-		
-		return totalDMG;
-	}
-
 
 }
