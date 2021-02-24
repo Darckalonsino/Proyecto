@@ -4,9 +4,22 @@ public class luchador extends personaje{
 
 	protected boolean guantes;
 	
-	protected guantes(String nombre, String fisico1, String fisico2, String magico1, String magico2, String eficacia) {
-		super(nombre, fisico1, fisico2, magico1, magico2, eficacia);
+	protected luchador(String nombre, String fisico1, String fisico2, String magico1, String magico2, String eficacia, boolean eficaz) {
+		super(nombre, fisico1, fisico2, magico1, magico2, eficacia, eficaz);
 		this.guantes = false;
 		}
+
+	protected int calcularDMG(String fisico1, String fisico2, String magico1, String magico2, boolean eficaz) {
+		int f1 = Integer.parseInt(fisico1);   
+		int f2 = Integer.parseInt(fisico2);
+		int m1 = Integer.parseInt(magico1);
+		int m2 = Integer.parseInt(magico2);
+		int totalDMG;
+		totalDMG = (f1*2) + (f2*2) + m1 + m2;
+		
+		if (eficaz == true) totalDMG = totalDMG * 2;
+		
+		return totalDMG;
+	}
 
 }
