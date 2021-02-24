@@ -4,8 +4,8 @@ public class hechicero extends personaje{
 
 	protected boolean sombrero = false;
 	
-		protected hechicero(String nombre, String fisico1, String fisico2, String magico1, String magico2, String eficacia, boolean eficaz) {
-			super(nombre, fisico1, fisico2, magico1, magico2, eficacia, eficaz);
+		protected hechicero(String nombre, String fisico1, String fisico2, String magico1, String magico2, String eficacia, boolean sombrero) {
+			super(nombre, fisico1, fisico2, magico1, magico2, eficacia);
 			this.sombrero = false;
 	}
 
@@ -22,5 +22,4 @@ public class hechicero extends personaje{
 			
 			return totalDMG;
 		}
-
 }
