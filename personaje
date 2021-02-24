@@ -4,16 +4,14 @@ public class personaje {
 	
 	protected String nombre, fisico1, fisico2, magico1, magico2, eficacia;
 	protected final String dañobase="1";
-	protected boolean eficaz=false;
 
-	protected personaje(String nombre, String fisico1, String fisico2, String magico1, String magico2, String eficacia, boolean eficaz) {
+	protected personaje(String nombre, String fisico1, String fisico2, String magico1, String magico2, String eficacia) {
 		this.nombre = nombre;
-		fisico1 = dañobase;
-		fisico2 = dañobase;
-		magico1 = dañobase;
-		magico2 = dañobase;
+		this.fisico1 = fisico1;
+		this.fisico2 = fisico2;
+		this.magico1 = magico1;
+		this.magico2 = magico2;
 		this.eficacia = eficacia;
-		eficaz.Isboolean = false;
 	}
 
 	protected personaje(String nombre) {
