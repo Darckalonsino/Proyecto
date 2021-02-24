@@ -1,0 +1,21 @@
+package juego;
+
+public class enemigos extends personaje{
+	
+	protected int hp;
+	
+	protected enemigos(String nombre, int hp) {
+		super(nombre);
+		this.hp = hp;
+}
+
+	protected int getHp() {
+		return hp;
+	}
+
+	protected void setHp(int hp) {
+		this.hp = hp;
+	}
+	
+	
+}
