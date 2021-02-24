@@ -6,9 +6,11 @@ import java.util.Scanner;
 public class principal {
 
 	public static void main(String[] args) {
-		String respuesta="Si";
+		String respuesta="Si", clase, fisico1, fisico2, magico1, magico2, eficacia, nombre;
+		boolean guantes=false, sombrero=false;
 		int opcion;
 		Scanner sc = new Scanner(System.in);
+		ArrayList <personaje> arrayPersonaje = new ArrayList<personaje>();
 		//System.out.println();
 		System.out.println("RPG Dungeon");
 		System.out.println("Bienvenido");
@@ -17,7 +19,7 @@ public class principal {
 			System.out.println("Que acción desea realizar?");
 			System.out.println("1. Crear un nuevo personaje");
 			System.out.println("2. Ver personajes creados");
-			System.out.println("3. Analizar enemigo");
+			System.out.println("3. Entrar en la mazmorra");
 			System.out.println("4. Intrucciones");
 			System.out.println("5. Salir");
 			opcion = sc.nextInt();
@@ -25,26 +27,104 @@ public class principal {
 			switch(opcion) {
 				case 1:
 					System.out.println("Cada personaje creado solo puede tener 2 atributos fisicos, 2 atributos magicos y 1 efectividad");
-					System.out.println("Elija 2 atributos fisicos para su personaje entre los otorgados");
-					System.out.println("Fuerza fisica / Velocidad / Inteligencia");
-					System.out.println("Destreza / Concentracion / Astucia");
-					for(int i = 0;i < 2;i++) {
-						
+					
+					System.out.print("Indique el nombre de su personaje: ");
+					nombre = sc.next();
+					
+					System.out.println("Elija su clase: ");
+					System.out.println("Luchador / Hechicero");
+					clase = sc.next();
+					
+					System.out.println("Elija sus atributos fisicos");
+					Fisicos();
+					System.out.print("Principal: ");
+					fisico1 = sc.next();
+					System.out.print("Secundario: ");
+					fisico2 = sc.next();
+					
+					System.out.println("Elija sus atributos magicos");
+					Magicos();
+					System.out.print("Principal: ");
+					magico1 = sc.nextLine();
+					System.out.print("Secundario: ");
+					magico2 = sc.next();
+					
+					System.out.println("Elija su titulo");
+					eficacia = sc.next();
+
+				
+					if (clase.equals("Luchador")) {
+						guantes = true;
+						luchador l1 = new luchador(nombre, fisico1, fisico2, magico1, magico2, eficacia, guantes);
+						System.out.println("Nombre: " + l1.getNombre());
+						System.out.println("Destreza principal: " + l1.getFisico1());
+						System.out.println("Destreza secundaria: " + l1.getFisico2());
+						System.out.println("Magia principal: " + l1.getFisico1());
+						System.out.println("Magia secundaria: " + l1.getFisico2());
+						System.out.println("Titulo: " + l1.getEficacia());
+						arrayPersonaje.add(l1);
+					} 
+					else if (clase.equals("Hechicero")) {
+						sombrero = true;
+						hechicero l1 = new hechicero(nombre, fisico1, fisico2, magico1, magico2, eficacia, sombrero);
+						System.out.println("Nombre: " + l1.getNombre());
+						System.out.println("Destreza principal: " + l1.getFisico1());
+						System.out.println("Destreza secundaria: " + l1.getFisico2());
+						System.out.println("Magia principal: " + l1.getFisico1());
+						System.out.println("Magia secundaria: " + l1.getFisico2());
+						System.out.println("Titulo: " + l1.getEficacia());
+						arrayPersonaje.add(l1);
 					}
 					
 				break;
 				case 2:
+					
 					
 				break;
 				case 3:
 					
 				break;
 				case 4:
-					
+					System.out.println("Instrucciones");
+					System.out.println("El juego consiste en superar una mazmorra llena de enemigos, ");
+					System.out.println("tu trabajo será crear personajes capaces de vencer a los enemigos.");
+					System.out.println("Los enemigos tendran una cantidad de vida fija y les podrás atacar cuantas veces quieras ");
+					System.out.println("y con diferentes personajes en caso de ser necesario, los personajes creados se guardan y ");
+					System.out.println("se puden reutilizar para atacar cualquier enemigo.");
+					System.out.println();
+					System.out.println("El juego termina cuando eliminas a todos los enemigos de la mazmorra.");
+					System.out.println("Los personajes pueden tener hasta 4 atributos, 2 fisicos y 2 magicos, los cuales pueden ser ");
+					System.out.println("beneficiosos o contraproducentes dependiendo del tipo de enemigo contra el que te estes enfrentado. ");
+					System.out.println("Cada personaje tiene acceso a un titulo el cual le otorgará una mejora de atributos dependiendo de que ");
+					System.out.println("tipo de enemigo este combatiendo.");
+					System.out.println("Entre los atributos fisico podemos encontrar: ");
+					Fisicos();
+					System.out.println("Entre los atributos magicos podemos encontrar: ");
+					Magicos();
 				break;
-				default:	
+				default: 
+					System.out.println("Introduzca un valor valido");
 			}
 		} while (respuesta.equals("Si"));
 	}
 
+	public static String Repeticion(String respuesta, Scanner sc) {
+		System.out.println("Desea continuar operando? Si o No");
+		respuesta = sc.next();
+		return respuesta;
+	}
+	public static void Fisicos() {
+		System.out.println("Fuerza");
+		System.out.println("Agilidad");
+		System.out.println("Velocidad");
+		System.out.println("Reflejos");
+		System.out.println("Astucia");
+	}
+	public static void Magicos() {
+		System.out.println("Luminosidad");
+		System.out.println("Oscuridad");
+		System.out.println("Espiritual");
+		System.out.println("Afinidad acuatica");
+		System.out.println("Magia ancestral");
+	}
 }
