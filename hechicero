@@ -4,9 +4,23 @@ public class hechicero extends personaje{
 
 	protected boolean sombrero = false;
 	
-		protected hechicero(String nombre, String fisico1, String fisico2, String magico1, String magico2, String eficacia) {
-			super(nombre, fisico1, fisico2, magico1, magico2, eficacia);
+		protected hechicero(String nombre, String fisico1, String fisico2, String magico1, String magico2, String eficacia, boolean eficaz) {
+			super(nombre, fisico1, fisico2, magico1, magico2, eficacia, eficaz);
 			this.sombrero = false;
 	}
+
+		protected int calcularDMG(String fisico1, String fisico2, String magico1, String magico2, boolean eficaz) {
+			int f1 = Integer.parseInt(fisico1);   
+			int f2 = Integer.parseInt(fisico2);
+			int m1 = Integer.parseInt(magico1);
+			int m2 = Integer.parseInt(magico2);
+			int totalDMG;
+			
+			totalDMG = f1 + f2 + (m1*2) + (m2*2);
+			
+			if (eficaz == true) totalDMG = totalDMG * 2;
+			
+			return totalDMG;
+		}
 
 }
