@@ -1,71 +1,193 @@
 package juego;
 
-public class personaje {
-	
-	protected String nombre, fisico1, fisico2, magico1, magico2, eficacia;
-	protected final String dañobase="1";
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Scanner;
+//System.out.println();
 
-	protected personaje(String nombre, String fisico1, String fisico2, String magico1, String magico2, String eficacia) {
-		this.nombre = nombre;
-		this.fisico1 = fisico1;
-		this.fisico2 = fisico2;
-		this.magico1 = magico1;
-		this.magico2 = magico2;
-		this.eficacia = eficacia;
+public class principal {
+
+	public static void main(String[] args) {
+		String respuesta="Si", clase, fisico1, fisico2, magico1, magico2, eficacia, eficacia1, eficacia2, eficacia3, nombre="", fisicos[], magicos[], eficacias[];
+		boolean guantes=false, sombrero=false;
+		int opcion, hp=0, dmg=0;
+		Scanner sc = new Scanner(System.in);
+		ArrayList <personaje> arrayPersonaje = new ArrayList<personaje>();
+		ArrayList <enemigos> arrayEnemigos = new ArrayList<enemigos>();
+		//Creacion de enemigos
+		enemigos e1 = new enemigos(nombre, hp);
+		e1.setNombre("Slime Gigante");
+		e1.setHp(100);
+		arrayEnemigos.add(e1);
+		e1.setNombre("Jinete Fantasma");
+		e1.setHp(200);
+		arrayEnemigos.add(e1);
+		e1.setNombre("Dragon Ilusorio");
+		e1.setHp(200);
+		arrayEnemigos.add(e1);
+		//Creacion de habilidades
+		fisicos = new String [5];
+		fisicos [0] = "Fuerza";
+		fisicos [1] = "Agilidad";
+		fisicos [2] = "Velocidad";
+		fisicos [3] = "Reflejos";
+		fisicos [4] = "Astucia";
+		
+		magicos = new String [5];
+		magicos [0] = "Luminosidad";
+		magicos [1] = "Petrificacion";
+		magicos [2] = "Espiritualismo";
+		magicos [3] = "Gravitacion";
+		magicos [4] = "Ilusionismo";
+
+		eficacias = new String [5];
+		eficacias [0] = "Cabellero de la corrosion";
+		eficacias [1] = "Oscuridad";
+		eficacias [2] = "Espiritualismo";
+		eficacias [3] = "Gravitacion";
+		eficacias [4] = "Ilusionismo";
+		//Iterators
+		Iterator<personaje> itPersonaje = arrayPersonaje.iterator();
+		Iterator<enemigos> itEnemigos = arrayEnemigos.iterator();
+		//Titulo
+		System.out.println("RPG Dungeon");
+		System.out.println("Bienvenido");
+		do {
+			System.out.println("Que acción desea realizar?");
+			System.out.println("1. Crear un nuevo personaje");
+			System.out.println("2. Ver personajes creados");
+			System.out.println("3. Entrar en la mazmorra");
+			System.out.println("4. Intrucciones");
+			System.out.println("5. Salir");
+			opcion = sc.nextInt();
+			
+			switch(opcion) {
+				case 1:
+					System.out.println("Cada personaje creado solo puede tener 2 atributos fisicos, 2 atributos magicos y 1 efectividad");
+					
+					System.out.print("Indique el nombre de su personaje: ");
+					nombre = sc.next();
+					
+					System.out.println("Elija su clase: ");
+					System.out.println("Luchador / Hechicero");
+					clase = sc.next();
+					
+					System.out.println("Elija sus atributos fisicos");
+					Fisicos(fisicos);
+					System.out.print("Principal: ");
+					fisico1 = sc.next();
+					System.out.print("Secundario: ");
+					fisico2 = sc.next();
+					
+					System.out.println("Elija sus atributos magicos");
+					Magicos(magicos);
+					System.out.print("Principal: ");
+					magico1 = sc.next();
+					System.out.print("Secundario: ");
+					magico2 = sc.next();
+					
+					System.out.println("Elija su titulo");
+					sc.nextLine(); //Este nextLine es para corregir un error al recoger la variable del titulo
+					eficacia = sc.nextLine();
+
+				
+					if (clase.equals("Luchador")) {
+						guantes = true;
+						luchador l1 = new luchador(nombre, fisico1, fisico2, magico1, magico2, eficacia, dmg, guantes);
+						System.out.println("Nombre: " + l1.getNombre());
+						System.out.println("Destreza principal: " + l1.getFisico1());
+						System.out.println("Destreza secundaria: " + l1.getFisico2());
+						System.out.println("Magia principal: " + l1.getMagico1());
+						System.out.println("Magia secundaria: " + l1.getMagico2());
+						System.out.println("Titulo: " + l1.getEficacia());
+						System.out.println("Daño base: " + l1.getDmg());
+						arrayPersonaje.add(l1);
+					} 
+					else if (clase.equals("Hechicero")) {
+						sombrero = true;
+						hechicero l1 = new hechicero(nombre, fisico1, fisico2, magico1, magico2, eficacia, dmg, sombrero);
+						System.out.println("Nombre: " + l1.getNombre());
+						System.out.println("Destreza principal: " + l1.getFisico1());
+						System.out.println("Destreza secundaria: " + l1.getFisico2());
+						System.out.println("Magia principal: " + l1.getFisico1());
+						System.out.println("Magia secundaria: " + l1.getFisico2());
+						System.out.println("Titulo: " + l1.getEficacia());
+						System.out.println("Daño base: " + l1.getDmg());
+						arrayPersonaje.add(l1);
+					}
+					
+				break;
+				case 2:
+					
+					while(itPersonaje.hasNext()) {
+						personaje nombrePersonaje = itPersonaje.next();
+						System.out.println("- Nombre: " + nombrePersonaje.getNombre());
+						System.out.println("Stats fisicos" + nombrePersonaje.getFisico1() + nombrePersonaje.getFisico2());
+						System.out.println("Stats Magicos" + nombrePersonaje.getMagico1() + nombrePersonaje.getMagico2());
+						System.out.println("Titulo: " + nombrePersonaje.getEficacia());
+					}
+					
+				break;
+				case 3:
+					System.out.println("Primera piso");
+					System.out.println("Indica el nombre del personaje que vas a usar: ");
+					nombre = sc.next();
+					
+					while(itPersonaje.hasNext()) {
+						personaje nombrePersonaje = itPersonaje.next();
+						if(nombrePersonaje.getNombre().equals(nombre)) {
+							System.out.println("Has escogido al heroe" + nombrePersonaje);
+							System.out.println("El heroe " + nombrePersonaje + " se encontro con un enemigo");
+						}
+						else {
+							System.out.println("El personaje indicado no existe.");
+						}
+					}
+					
+					
+					
+					
+				break;
+				case 4:
+					System.out.println("Instrucciones");
+					System.out.println("El juego consiste en superar una mazmorra llena de enemigos, ");
+					System.out.println("tu trabajo será crear personajes capaces de vencer a los enemigos.");
+					System.out.println("Los enemigos tendran una cantidad de vida fija y les podrás atacar cuantas veces quieras ");
+					System.out.println("y con diferentes personajes en caso de ser necesario, los personajes creados se guardan y ");
+					System.out.println("se puden reutilizar para atacar cualquier enemigo.");
+					System.out.println();
+					System.out.println("El juego termina cuando eliminas a todos los enemigos de la mazmorra.");
+					System.out.println("Los personajes pueden tener hasta 4 atributos, 2 fisicos y 2 magicos, los cuales pueden ser ");
+					System.out.println("beneficiosos o contraproducentes dependiendo del tipo de enemigo contra el que te estes enfrentado. ");
+					System.out.println("Cada personaje tiene acceso a un titulo el cual le otorgará una mejora de atributos dependiendo de que ");
+					System.out.println("tipo de enemigo este combatiendo.");
+					System.out.println("Entre los atributos fisico podemos encontrar: ");
+					Fisicos(fisicos);
+					System.out.println("Entre los atributos magicos podemos encontrar: ");
+					Magicos(magicos);
+				break;
+				default: 
+					System.out.println("Introduzca un valor valido");
+			}
+		} while (respuesta.equals("Si"));
 	}
 
-	protected personaje(String nombre) {
-		this.nombre = nombre;
+	public static String Repeticion(String respuesta, Scanner sc) {
+		System.out.println("Desea continuar jugando? Si o No");
+		respuesta = sc.next();
+		return respuesta;
 	}
+	public static void Fisicos(String fisicos[]) {
+		
+		for (int i = 0;i < 5;i++) {
+			System.out.println(fisicos[i]);
+		}
 
-	protected String getNombre() {
-		return nombre;
 	}
-
-	protected void setNombre(String nombre) {
-		this.nombre = nombre;
+	public static void Magicos(String magicos[]) {
+		for (int i = 0;i < 5;i++) {
+			System.out.println(magicos[i]);
+		}
 	}
-
-	protected String getFisico1() {
-		return fisico1;
-	}
-
-	protected void setFisico1(String fisico1) {
-		this.fisico1 = fisico1;
-	}
-
-	protected String getFisico2() {
-		return fisico2;
-	}
-
-	protected void setFisico2(String fisico2) {
-		this.fisico2 = fisico2;
-	}
-
-	protected String getMagico1() {
-		return magico1;
-	}
-
-	protected void setMagico1(String magico1) {
-		this.magico1 = magico1;
-	}
-
-	protected String getMagico2() {
-		return magico2;
-	}
-
-	protected void setMagico2(String magico2) {
-		this.magico2 = magico2;
-	}
-	
-	
-	public String getEficacia() {
-		return eficacia;
-	}
-
-	public void setEficacia(String eficacia) {
-		this.eficacia = eficacia;
-	}
-
 
 }
