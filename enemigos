@@ -80,7 +80,7 @@ public class enemigos extends personaje{
 		int dmgfisico2=1;
 		int dmgmagico1=1;
 		int dmgmagico2=1;
-		if (nombre == "luchador") {
+		if (guantes == true) {
 			dmgfisico1 = dmgfisico1*3;
 			dmgfisico2 = dmgfisico2*2;
 			
@@ -106,17 +106,44 @@ public class enemigos extends personaje{
 				dmgfisico1 = dmgfisico1 / 2;
 			}
 		}
-			//Daño por efectividad
-			if (eficacia == "Caballero de la corrosion") {
-				dmgDone = (dmgfisico1 + dmgfisico2 + dmgmagico1 + dmgmagico1)*4;
-				hp = hp - dmgDone;
+			
+		else if (sombrero == true) {
+			dmgmagico1 = dmgmagico1*3;
+			dmgmagico2 = dmgmagico2*2;
+			
+			//Daño magico1 
+			if (fisico1 == "Agilidad" || fisico1 == "Velocidad") {
+				dmgfisico1 = dmgfisico1 * 3;
 			}
-			else {
-				dmgDone = (dmgfisico1 + dmgfisico2 + dmgmagico1 + dmgmagico1)*4;
-				hp = hp - dmgDone;
-			}	
-			System.out.println("Daño realizado: " + dmgDone);
+			else if (fisico1 == "Fuerza" || fisico1 == "Astucia") {
+				dmgfisico1 = dmgfisico1 / 3;
+			}
+			//Daño magico2
+			if (fisico2 == "Agilidad" || fisico2 == "Velocidad") {
+				dmgfisico2 = dmgfisico2 * 2;
+			}
+			else if (fisico2 == "Fuerza" || fisico2 == "Astucia") {
+				dmgfisico2 = dmgfisico2 / 2;
+			}
+			//Daño fisico
+			if (magico1 == "Gravitacion" || magico1 == "Petrificacion") {
+				dmgfisico1 = dmgfisico1 * 2;
+			}
+			else if (magico1 == "Espiritualismo" || magico1 == "Ilusionismo") {
+				dmgfisico1 = dmgfisico1 / 2;
+			}
+			}
 		
+		//Daño por efectividad
+		if (eficacia == "Caballero de la corrosion") {
+			dmgDone = (dmgfisico1 + dmgfisico2 + dmgmagico1 + dmgmagico1)*4;
+			hp = hp - dmgDone;
+		}
+		else {
+			dmgDone = (dmgfisico1 + dmgfisico2 + dmgmagico1 + dmgmagico1)*4;
+			hp = hp - dmgDone;
+		}	
+		System.out.println("Daño realizado: " + dmgDone);
 		return hp;
 		// Debilidades - Agilidad, Velocidad, Gravitacion, Petrificacion 
 		// Ventajas - Fuerza, Astucia, Espiritualismo, Ilusionismo
