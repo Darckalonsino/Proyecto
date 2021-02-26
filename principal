@@ -1,20 +1,55 @@
 package juego;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
+//System.out.println();
 
 public class principal {
 
 	public static void main(String[] args) {
-		String respuesta="Si", clase, fisico1, fisico2, magico1, magico2, eficacia, nombre;
-		boolean guantes=false, sombrero=false;
-		int opcion;
+		String respuesta="Si", clase, fisico1, fisico2, magico1, magico2, eficacia, eficacia1, eficacia2, eficacia3, nombre="", fisicos[], magicos[], eficacias[], nomEnemigo, equip1, equip2;
+		boolean guantes=false, sombrero=false, pechera=false, tunica=false;
+		int opcion, hp=0, dmg=0;
 		Scanner sc = new Scanner(System.in);
 		ArrayList <personaje> arrayPersonaje = new ArrayList<personaje>();
-		//System.out.println();
+		ArrayList <enemigos> arrayEnemigos = new ArrayList<enemigos>();
+		//Creacion de enemigos
+		enemigos e1 = new enemigos(nombre, hp);
+		e1.setNombre("Slime Gigante");// Debilidades - Agilidad, Velocidad, Gravitacion, Petrificacion 
+		e1.setHp(100);				 // Ventajas - Fuerza, Astucia , Ilusionismo, Espiritualismo
+		arrayEnemigos.add(e1);		
+		e1.setNombre("Jinete Fantasma"); // Debilidades - Velocidad, Agilidad, Ilusionismo, Espiritualismo
+		e1.setHp(200);					// Ventajas - Fuerza, Astucia, Petrificacion, Gravitacion,
+		arrayEnemigos.add(e1);		   
+		e1.setNombre("Dragon Ilusorio");// Debilidades -  Fuerza, Astucia, Agilidad, Petrificacion, Gravitacion
+		e1.setHp(200);				   // Ventajas - Velocidad, Agilidad, Ilusionismo, Espiritualismo
+		arrayEnemigos.add(e1);		  
+		//Creacion de habilidades
+		fisicos = new String [4];
+		fisicos [0] = "Fuerza";
+		fisicos [1] = "Agilidad";
+		fisicos [2] = "Velocidad";
+		fisicos [3] = "Astucia";
+		
+		magicos = new String [4];
+		magicos [0] = "Petrificacion";
+		magicos [1] = "Espiritualismo";
+		magicos [2] = "Gravitacion";
+		magicos [3] = "Ilusionismo";
+
+		eficacias = new String [5];
+		eficacias [0] = "Cabellero de la corrosion";
+		eficacias [1] = "Oscuridad";
+		eficacias [2] = "Espiritualismo";
+		eficacias [3] = "Gravitacion";
+		eficacias [4] = "Ilusionismo";
+		//Iterators
+		Iterator<personaje> itPersonaje = arrayPersonaje.iterator();
+		Iterator<enemigos> itEnemigos = arrayEnemigos.iterator();
+		//Titulo
 		System.out.println("RPG Dungeon");
 		System.out.println("Bienvenido");
-		
 		do {
 			System.out.println("Que acción desea realizar?");
 			System.out.println("1. Crear un nuevo personaje");
@@ -35,53 +70,139 @@ public class principal {
 					System.out.println("Luchador / Hechicero");
 					clase = sc.next();
 					
+					
+					System.out.println("¿Desea equiparse la parte superior del equipamiento?");
+					System.out.println("Si o No");
+					equip1= sc.next();
+					
+					System.out.println("¿Desea equiparse la parte inferior del equipamiento?");
+					System.out.println("Si o No");
+					equip2= sc.next();
+					
+					
 					System.out.println("Elija sus atributos fisicos");
-					Fisicos();
+					Fisicos(fisicos);
 					System.out.print("Principal: ");
 					fisico1 = sc.next();
 					System.out.print("Secundario: ");
 					fisico2 = sc.next();
 					
 					System.out.println("Elija sus atributos magicos");
-					Magicos();
+					Magicos(magicos);
 					System.out.print("Principal: ");
-					magico1 = sc.nextLine();
+					magico1 = sc.next();
 					System.out.print("Secundario: ");
 					magico2 = sc.next();
 					
 					System.out.println("Elija su titulo");
-					eficacia = sc.next();
+					sc.nextLine(); //Este nextLine es para corregir un error al recoger la variable del titulo
+					eficacia = sc.nextLine();
 
 				
 					if (clase.equals("Luchador")) {
-						guantes = true;
-						luchador l1 = new luchador(nombre, fisico1, fisico2, magico1, magico2, eficacia, guantes);
+						if (equip1.equals("Si")) {
+							guantes = true;
+							equip1 = "Equipado";
+						}
+						else {
+							guantes = false;
+							equip1 = "No Equipado";
+						}
+						if (equip2.equals("Si")) {
+							pechera = true;
+							equip2 = "Equipado";
+						}
+						else {
+							pechera = false;
+							equip2 = "No Equipado";
+						}
+						personaje l1 = new luchador(nombre, fisico1, fisico2, magico1, magico2, eficacia, dmg, guantes, pechera);
 						System.out.println("Nombre: " + l1.getNombre());
 						System.out.println("Destreza principal: " + l1.getFisico1());
 						System.out.println("Destreza secundaria: " + l1.getFisico2());
-						System.out.println("Magia principal: " + l1.getFisico1());
-						System.out.println("Magia secundaria: " + l1.getFisico2());
+						System.out.println("Magia principal: " + l1.getMagico1());
+						System.out.println("Magia secundaria: " + l1.getMagico2());
 						System.out.println("Titulo: " + l1.getEficacia());
+						System.out.println("Pechera:" + equip1);
+						System.out.println("Guantes: " + equip2);
+						System.out.println("Daño base: " + l1.getDmg());
 						arrayPersonaje.add(l1);
 					} 
 					else if (clase.equals("Hechicero")) {
-						sombrero = true;
-						hechicero l1 = new hechicero(nombre, fisico1, fisico2, magico1, magico2, eficacia, sombrero);
+						if (equip1.equals("Si")) {
+							sombrero = true;
+							equip1 = "Equipado";
+						}
+						else {
+							sombrero = false;
+							equip1 = "No Equipado";
+						}
+						if (equip2.equals("Si")) {
+							tunica = true;
+							equip2 = "Equipado";
+						}
+						else {
+							tunica = false;
+							equip2 = "No Equipado";
+						}
+						personaje l1 = new hechicero(nombre, fisico1, fisico2, magico1, magico2, eficacia, dmg, sombrero, tunica);
 						System.out.println("Nombre: " + l1.getNombre());
 						System.out.println("Destreza principal: " + l1.getFisico1());
 						System.out.println("Destreza secundaria: " + l1.getFisico2());
 						System.out.println("Magia principal: " + l1.getFisico1());
 						System.out.println("Magia secundaria: " + l1.getFisico2());
 						System.out.println("Titulo: " + l1.getEficacia());
+						System.out.println("Sombrero:" + equip1);
+						System.out.println("Tunica: " + equip2);
+						System.out.println("Daño base: " + l1.getDmg());
 						arrayPersonaje.add(l1);
 					}
 					
 				break;
 				case 2:
-					
+					while(itPersonaje.hasNext()) {
+						personaje nombrePersonaje = itPersonaje.next();
+						System.out.println("- Nombre: " + nombrePersonaje.getNombre());
+						System.out.println("Stats fisicos" + nombrePersonaje.getFisico1() + nombrePersonaje.getFisico2());
+						System.out.println("Stats Magicos" + nombrePersonaje.getMagico1() + nombrePersonaje.getMagico2());
+						System.out.println("Titulo: " + nombrePersonaje.getEficacia());
+						//System.out.println("Equipamiento: " + equip1.isSombrero() + equip2.isSombrero());
+						System.out.println("Daño: " + nombrePersonaje.getDmg());
+					}
 					
 				break;
 				case 3:
+					System.out.println("Primera piso");
+					System.out.println("Indica el nombre del personaje que vas a usar: ");
+					nombre = sc.next();
+					
+					while(itPersonaje.hasNext()) {
+						personaje nombrePersonaje = itPersonaje.next();
+						if(nombrePersonaje.getNombre().equals(nombre)) {
+							System.out.println("Has escogido al heroe" + nombrePersonaje);
+							System.out.println("El heroe " + nombrePersonaje + " se encontro con un enemigo");
+							while(itEnemigos.hasNext()) {
+								enemigos nombreEnemigo = itEnemigos.next();
+								if(nombreEnemigo.getNombre().equals("Slime Gigante")) {
+									nombre = nombrePersonaje.getNombre();
+									fisico1 = nombrePersonaje.getFisico1();
+									fisico2 = nombrePersonaje.getFisico2();
+									magico1 = nombrePersonaje.getFisico1();
+									magico2 = nombrePersonaje.getFisico2();
+									eficacia = nombrePersonaje.getEficacia();
+									int dmgDone =Integer.parseInt(nombrePersonaje.getDmg());  
+									hp = nombreEnemigo.getHp();
+									nombreEnemigo.CombateSlime(nombre, fisico1, fisico2, magico1, magico2, eficacia, hp, dmgDone);
+								}
+							}
+						}
+						else {
+							System.out.println("El personaje indicado no existe.");
+						}
+					}
+					
+					
+					
 					
 				break;
 				case 4:
@@ -98,9 +219,9 @@ public class principal {
 					System.out.println("Cada personaje tiene acceso a un titulo el cual le otorgará una mejora de atributos dependiendo de que ");
 					System.out.println("tipo de enemigo este combatiendo.");
 					System.out.println("Entre los atributos fisico podemos encontrar: ");
-					Fisicos();
+					Fisicos(fisicos);
 					System.out.println("Entre los atributos magicos podemos encontrar: ");
-					Magicos();
+					Magicos(magicos);
 				break;
 				default: 
 					System.out.println("Introduzca un valor valido");
@@ -109,22 +230,21 @@ public class principal {
 	}
 
 	public static String Repeticion(String respuesta, Scanner sc) {
-		System.out.println("Desea continuar operando? Si o No");
+		System.out.println("Desea continuar jugando? Si o No");
 		respuesta = sc.next();
 		return respuesta;
 	}
-	public static void Fisicos() {
-		System.out.println("Fuerza");
-		System.out.println("Agilidad");
-		System.out.println("Velocidad");
-		System.out.println("Reflejos");
-		System.out.println("Astucia");
+	public static void Fisicos(String fisicos[]) {
+		
+		for (int i = 0;i < 5;i++) {
+			System.out.println(fisicos[i]);
+		}
+
 	}
-	public static void Magicos() {
-		System.out.println("Luminosidad");
-		System.out.println("Oscuridad");
-		System.out.println("Espiritual");
-		System.out.println("Afinidad acuatica");
-		System.out.println("Magia ancestral");
+	public static void Magicos(String magicos[]) {
+		for (int i = 0;i < 5;i++) {
+			System.out.println(magicos[i]);
+		}
 	}
+
 }
