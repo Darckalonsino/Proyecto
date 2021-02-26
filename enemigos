@@ -29,7 +29,11 @@ public class enemigos extends personaje{
 		if (guantes == true) {
 			dmgfisico1 = dmgfisico1*3;
 			dmgfisico2 = dmgfisico2*2;
-			
+		}
+		else if (sombrero == true) {
+			dmgmagico1 = dmgmagico1*3;
+			dmgmagico2 = dmgmagico2*2;
+		}
 			//Daño fisico1 
 			if (fisico1.equals("Agilidad") || fisico1.equals("Velocidad")) {
 				dmgfisico1 = dmgfisico1 * 3;
@@ -62,8 +66,8 @@ public class enemigos extends personaje{
 			if (pechera == true) {
 				dmgDone = (dmgfisico1 + dmgfisico2 + dmgmagico1 + dmgmagico2)*2;
 			}
-		}
-		else if (sombrero == true) {
+		
+		/*else if (sombrero == true) {
 			dmgmagico1 = dmgmagico1*3;
 			dmgmagico2 = dmgmagico2*2;
 			
@@ -99,7 +103,7 @@ public class enemigos extends personaje{
 			if (pechera == true) {
 				dmgDone = (dmgfisico1 + dmgfisico2 + dmgmagico1 + dmgmagico1)*2;
 			}	
-		}
+		}*/
 			//Daño por efectividad
 			if (eficacia.equals("Caballero de la corrosion")) {
 				dmgDone = dmgDone*4;
