@@ -19,16 +19,17 @@ public class enemigos extends personaje{
 	//Todas las stats tiene 1 de daño base
 	//Las clase multiplica por 3 el atributo principal y por 2 el secundario
 	//La clase tambien afecta al orden de aplicacion de los multiplicadores
-	protected int CombateSlime(String nombre, String fisico1, String fisico2, String magico1, String magico2, String eficacia, int hp, int dmgDone, boolean guantes, boolean pechera, boolean tunica, boolean sombrero) {
+	protected int CombateSlime(String nombre, String fisico1, String fisico2, String magico1, String magico2, String eficacia, int hp, boolean guantes, boolean pechera, boolean tunica, boolean sombrero) {
 		System.out.println("Enemigo: Slime Gigante" );
-		System.out.println("Vida" + hp);
+		System.out.println("Vida: " + hp);
+		int dmgDone=0;
 		int dmgfisico1=1;
 		int dmgfisico2=1;
 		int dmgmagico1=1;
 		int dmgmagico2=1;
 		if (guantes == true) {
-			dmgfisico1 = dmgfisico1*3;
-			dmgfisico2 = dmgfisico2*2;
+			dmgfisico1 = dmgfisico1*2;
+			dmgfisico2 = dmgfisico2*1;
 		}
 		else if (sombrero == true) {
 			dmgmagico1 = dmgmagico1*3;
@@ -62,51 +63,16 @@ public class enemigos extends personaje{
 			else if (magico2.equals("Espiritualismo") || magico2.equals("Ilusionismo")) {
 				dmgmagico2 = dmgmagico2 / 2;
 			}
-			//Aumento de daño de pechera contra Slime
+			//Aumento de daño de equip2 contra Slime
 			if (pechera == true) {
-				dmgDone = (dmgfisico1 + dmgfisico2 + dmgmagico1 + dmgmagico2)*2;
+				dmgDone = (dmgfisico1 + dmgfisico2 + dmgmagico1 + dmgmagico2)*4;
 			}
-		
-		/*else if (sombrero == true) {
-			dmgmagico1 = dmgmagico1*3;
-			dmgmagico2 = dmgmagico2*2;
-			
-			//Daño magico1 
-			if (magico1.equals("Gravitacion") || magico1.equals("Petrificacion")) {
-				dmgmagico1 = dmgmagico1 * 3;
+			else if (tunica == true) {
+				dmgDone = (dmgfisico1 + dmgfisico2 + dmgmagico1 + dmgmagico2)*4;
 			}
-			else if (magico1.equals("Espiritualismo") || magico1.equals("Ilusionismo")) {
-				dmgmagico1 = dmgmagico1 / 3;
-			}
-			//Daño magico2
-			if (magico2.equals("Gravitacion") || magico2.equals("Petrificacion")) {
-				dmgmagico2 = dmgmagico2 * 2;
-			}
-			else if (magico2.equals("Espiritualismo") || magico2.equals("Ilusionismo")) {
-				dmgmagico2 = dmgmagico2 / 2;
-			}
-			//Daño fisico1
-			if (fisico1.equals("Agilidad") || fisico1.equals("Velocidad")) {
-				dmgfisico1 = dmgfisico1 * 3;
-			}
-			else if (fisico1.equals("Fuerza") || fisico1.equals("Astucia")) {
-				dmgfisico1 = dmgfisico1 / 3;
-			}
-			//Daño fisico2
-			if (fisico2.equals("Agilidad") || fisico2.equals("Velocidad")) {
-				dmgfisico2 = dmgfisico2 * 2;
-			}
-			else if (fisico2.equals("Fuerza") || fisico2.equals("Astucia")) {
-				dmgfisico2 = dmgfisico2 / 2;
-			}
-			//Aumento de daño de tunica contra Slime
-			if (pechera == true) {
-				dmgDone = (dmgfisico1 + dmgfisico2 + dmgmagico1 + dmgmagico1)*2;
-			}	
-		}*/
 			//Daño por efectividad
 			if (eficacia.equals("Caballero de la corrosion")) {
-				dmgDone = dmgDone*4;
+				dmgDone = (dmgDone + 2)*4;
 				hp = hp - dmgDone;
 			}
 			else {
@@ -120,17 +86,22 @@ public class enemigos extends personaje{
 		// Ventajas - Fuerza, Astucia, Espiritualismo, Ilusionismo
 	}
 	
-	protected int CombateJinete(String nombre, String fisico1, String fisico2, String magico1, String magico2, String eficacia, int hp, int dmgDone, boolean guantes, boolean pechera, boolean tunica, boolean sombrero) {
+	protected int CombateJinete(String nombre, String fisico1, String fisico2, String magico1, String magico2, String eficacia, int hp, boolean guantes, boolean pechera, boolean tunica, boolean sombrero) {
 		System.out.println("Enemigo: Jinete Fantasma" );
-		System.out.println("Vida" + hp);
+		System.out.println("Vida: " + hp);
+		int dmgDone=0;
 		int dmgfisico1=1;
 		int dmgfisico2=1;
 		int dmgmagico1=1;
 		int dmgmagico2=1;
 		if (guantes == true) {
-			dmgfisico1 = dmgfisico1*3;
-			dmgfisico2 = dmgfisico2*2;
-			
+			dmgfisico1 = dmgfisico1*2;
+			dmgfisico2 = dmgfisico2*1;
+		}
+		else if (sombrero == true) {
+			dmgmagico1 = dmgmagico1*4;
+			dmgmagico2 = dmgmagico2*3;
+		}
 			//Daño fisico1 
 			if (fisico1.equals("Agilidad") || fisico1.equals("Velocidad")) {
 				dmgfisico1 = dmgfisico1 * 3;
@@ -143,6 +114,73 @@ public class enemigos extends personaje{
 				dmgfisico2 = dmgfisico2 * 2;
 			}
 			else if (fisico2.equals("Fuerza") || fisico2.equals("Astucia")) {
+				dmgfisico2 = dmgfisico2 / 2;
+			}
+			//Daño magico1
+			if (magico1.equals("Ilusionismo") || magico1.equals("Espiritualismo")) {
+				dmgmagico1 = dmgmagico1 * 3;
+			}
+			else if (magico1.equals("Petrificacion") || magico1.equals("Gravitacion")) {
+				dmgmagico1 = dmgmagico1 / 3;
+			}
+			//Daño magico2
+			if (magico2.equals("Ilusionismo") || magico2.equals("Espiritualismo")) {
+				dmgmagico2 = dmgmagico2 * 2;
+			}
+			else if (magico2.equals("Petrificacion") || magico2.equals("Gravitacion")) {
+				dmgmagico2 = dmgmagico2 / 2;
+			}
+			//Aumento de daño de equip2 contra Slime
+			if (pechera == true) {
+				dmgDone = (dmgfisico1 + dmgfisico2 + dmgmagico1 + dmgmagico2)*3;
+			}
+			else if (tunica == true) {
+				dmgDone = (dmgfisico1 + dmgfisico2 + dmgmagico1 + dmgmagico2)*4;
+			}
+			//Daño por efectividad
+			if (eficacia.equals("Caballero de la corrosion")) {
+				dmgDone = (dmgDone + 4)*5;
+				hp = hp - dmgDone;
+			}
+			else {
+				hp = hp - dmgDone;
+			}	
+			System.out.println("Daño realizado: " + dmgDone);
+			System.out.println("Vida restante: " + hp);
+		
+		return hp;
+		// Debilidades - Velocidad, Agilidad, Ilusionismo, Espiritualismo
+		// Ventajas - Fuerza, Astucia, Petrificacion, Gravitacion
+	}
+	
+	protected int CombateDragon(String nombre, String fisico1, String fisico2, String magico1, String magico2, String eficacia, int hp, boolean guantes, boolean pechera, boolean tunica, boolean sombrero) {
+		System.out.println("Enemigo: Dragon Ilusorio" );
+		System.out.println("Vida: " + hp);
+		int dmgDone=0;
+		int dmgfisico1=1;
+		int dmgfisico2=1;
+		int dmgmagico1=1;
+		int dmgmagico2=1;
+		if (guantes == true) {
+			dmgfisico1 = dmgfisico1*4;
+			dmgfisico2 = dmgfisico2*2;
+		}
+		else if (sombrero == true) {
+			dmgmagico1 = dmgmagico1*4;
+			dmgmagico2 = dmgmagico2*2;
+		}
+			//Daño fisico1 
+			if (fisico1.equals("Fuerza") || fisico1.equals("Astucia")) {
+				dmgfisico1 = dmgfisico1 * 3;
+			}
+			else if (fisico1.equals("Velocidad") || fisico1.equals("Agilidad")) {
+				dmgfisico1 = dmgfisico1 / 3;
+			}
+			//Daño fisico2
+			if (fisico2.equals("Fuerza") || fisico2.equals("Astucia")) {
+				dmgfisico2 = dmgfisico2 * 2;
+			}
+			else if (fisico2.equals("Velocidad") || fisico2.equals("Agilidad")) {
 				dmgfisico2 = dmgfisico2 / 2;
 			}
 			//Daño magico1
@@ -159,51 +197,16 @@ public class enemigos extends personaje{
 			else if (magico2.equals("Espiritualismo") || magico2.equals("Ilusionismo")) {
 				dmgmagico2 = dmgmagico2 / 2;
 			}
-			//Aumento de daño de pechera contra Slime
+			//Aumento de daño de equip2 contra Slime
 			if (pechera == true) {
-				dmgDone = (dmgfisico1 + dmgfisico2 + dmgmagico1 + dmgmagico2)*2;
+				dmgDone = (dmgfisico1 + dmgfisico2 + dmgmagico1 + dmgmagico2)/2;
 			}
-		}
-		else if (sombrero == true) {
-			dmgmagico1 = dmgmagico1*3;
-			dmgmagico2 = dmgmagico2*2;
-			
-			//Daño magico1 
-			if (magico1.equals("Gravitacion") || magico1.equals("Petrificacion")) {
-				dmgmagico1 = dmgmagico1 * 3;
+			else if (tunica == true) {
+				dmgDone = (dmgfisico1 + dmgfisico2 + dmgmagico1 + dmgmagico2)/2;
 			}
-			else if (magico1.equals("Espiritualismo") || magico1.equals("Ilusionismo")) {
-				dmgmagico1 = dmgmagico1 / 3;
-			}
-			//Daño magico2
-			if (magico2.equals("Gravitacion") || magico2.equals("Petrificacion")) {
-				dmgmagico2 = dmgmagico2 * 2;
-			}
-			else if (magico2.equals("Espiritualismo") || magico2.equals("Ilusionismo")) {
-				dmgmagico2 = dmgmagico2 / 2;
-			}
-			//Daño fisico1
-			if (fisico1.equals("Agilidad") || fisico1.equals("Velocidad")) {
-				dmgfisico1 = dmgfisico1 * 3;
-			}
-			else if (fisico1.equals("Fuerza") || fisico1.equals("Astucia")) {
-				dmgfisico1 = dmgfisico1 / 3;
-			}
-			//Daño fisico2
-			if (fisico2.equals("Agilidad") || fisico2.equals("Velocidad")) {
-				dmgfisico2 = dmgfisico2 * 2;
-			}
-			else if (fisico2.equals("Fuerza") || fisico2.equals("Astucia")) {
-				dmgfisico2 = dmgfisico2 / 2;
-			}
-			//Aumento de daño de tunica contra Slime
-			if (pechera == true) {
-				dmgDone = (dmgfisico1 + dmgfisico2 + dmgmagico1 + dmgmagico1)*2;
-			}	
-		}
 			//Daño por efectividad
 			if (eficacia.equals("Caballero de la corrosion")) {
-				dmgDone = dmgDone*4;
+				dmgDone = (dmgDone + 10)*5;
 				hp = hp - dmgDone;
 			}
 			else {
@@ -213,8 +216,8 @@ public class enemigos extends personaje{
 			System.out.println("Vida restante: " + hp);
 		
 		return hp;
-		// Debilidades - Velocidad, Agilidad, Ilusionismo, Espiritualismo
-		// Ventajas - Fuerza, Astucia, Petrificacion, Gravitacion
+		// Debilidades -  Fuerza, Astucia, Agilidad, Petrificacion, Gravitacion
+		// Ventajas - Velocidad, Agilidad, Ilusionismo, Espiritualismo
 	}
 	
 }
