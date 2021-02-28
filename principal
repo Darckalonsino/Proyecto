@@ -9,7 +9,7 @@ public class principal {
 
 	public static void main(String[] args) {
 		String respuesta="Si", clase, fisico1, fisico2, magico1, magico2, eficacia, nombre="", fisicos[], magicos[], eficacias[], equip1, equip2;
-		boolean guantes=false, sombrero=false, pechera=false, tunica=false, win = false;
+		boolean guantes=false, sombrero=false, pechera=false, tunica=false;
 		int opcion, hp=0, dmg=0;
 		Scanner sc = new Scanner(System.in);
 		ArrayList <personaje> arrayPersonaje = new ArrayList<personaje>();
@@ -102,7 +102,7 @@ public class principal {
 
 				
 					if (clase.equals("Luchador")) {
-						p1 = new luchador(nombre, fisico1, fisico2, magico1, magico2, eficacia, dmg, guantes, pechera);
+						p1 = new luchador(nombre, fisico1, fisico2, magico1, magico2, eficacia, guantes, pechera);
 						if (equip1.equals("Si")) {
 							if (p1 instanceof luchador) {
 								((luchador)p1).setGuantes(true);
@@ -125,7 +125,7 @@ public class principal {
 						arrayPersonaje.add(p1);
 					} 
 					else if (clase.equals("Hechicero")) {
-						p1 = new hechicero(nombre, fisico1, fisico2, magico1, magico2, eficacia, dmg, sombrero, tunica);
+						p1 = new hechicero(nombre, fisico1, fisico2, magico1, magico2, eficacia, sombrero, tunica);
 						if (equip1.equals("Si")) {
 							if (p1 instanceof hechicero) {
 								((hechicero)p1).setSombrero(true);
@@ -139,8 +139,8 @@ public class principal {
 						System.out.println("Nombre: " + p1.getNombre());
 						System.out.println("Destreza principal: " + p1.getFisico1());
 						System.out.println("Destreza secundaria: " + p1.getFisico2());
-						System.out.println("Magia principal: " + p1.getFisico1());
-						System.out.println("Magia secundaria: " + p1.getFisico2());
+						System.out.println("Magia principal: " + p1.getMagico1());
+						System.out.println("Magia secundaria: " + p1.getMagico2());
 						System.out.println("Titulo: " + p1.getEficacia());
 						System.out.println("Tunica:" + ((hechicero)p1).isTunica());
 						System.out.println("Sombrero: " + ((hechicero)p1).isSombrero());		
@@ -194,36 +194,34 @@ public class principal {
 							Iterator<enemigos> itEnemigos = arrayEnemigos.iterator();
 							while(itEnemigos.hasNext() && respuesta.equals("Si")) {
 								enemigos nombreEnemigo = itEnemigos.next();
-										//COMBATE CONTRA EL PRIMER JEFE
 								hp = nombreEnemigo.getHp();
-								System.out.println("El heroe " + nombrePersonaje.getNombre() + " se encontro con un enemigo");
-							do {
-								if(hp > 0 && nombreEnemigo.getNombre().equals("Slime Gigante")){
+								//COMBATE CONTRA EL PRIMER JEFE
+								while (respuesta.equals("Si") && hp > 0 && nombreEnemigo.getNombre().equals("Slime Gigante")) {
+								
 										hp = nombreEnemigo.CombateSlime(nombre, fisico1, fisico2, magico1, magico2, eficacia, hp, guantes, pechera, tunica, sombrero);
 										respuesta = FinalizarCombate(respuesta, hp, nombreEnemigo, sc);
-								} //Fin Combate Slime
-								
+								 //Fin Combate Slime
+								} 
 								//COMBATE CONTRA EL SEGUNDO JEFE
-								else if (hp > 0 && nombreEnemigo.getNombre().equals("Jinete Fantasma")){
+								while (respuesta.equals("Si") && hp > 0 && nombreEnemigo.getNombre().equals("Jinete Fantasma")) {
+
 									hp = nombreEnemigo.CombateJinete(nombre, fisico1, fisico2, magico1, magico2, eficacia, hp, guantes, pechera, tunica, sombrero);
 									respuesta = FinalizarCombate(respuesta, hp, nombreEnemigo, sc);
-							} //Fin Combate Jinete
-								
+							 //Fin Combate Jinete
+								}
 								//COMBATE CONTRA EL TERCER JEFE
-								else if(hp > 0 && nombreEnemigo.getNombre().equals("Dragon Ilusorio")){
+								while (respuesta.equals("Si") && hp > 0 && nombreEnemigo.getNombre().equals("Dragon Ilusorio")){
 									hp = nombreEnemigo.CombateDragon(nombre, fisico1, fisico2, magico1, magico2, eficacia, hp, guantes, pechera, tunica, sombrero);
 									respuesta = FinalizarCombate(respuesta, hp, nombreEnemigo, sc);
-									win = true;
-								}//Fin Combate Dragon
-							} while(respuesta.equals("Si"));
-						
-					if (win == true) {
-					System.out.println("Has derrotado a todos los enemigos de la mazmorra");
-					}
+								//Fin Combate Dragon
+								}
+								if (nombreEnemigo.getNombre().equals("Dragon Ilusorio") && hp <= 0) {
+									System.out.println("Has derrotado a todos los enemigos de la mazmorra");
+								}
 							}//Fin Combates contra enemigos
-							
 						}//Fin personajes
 			}//Fin while mazmorra
+					
 					
 					respuesta = "Si";
 					
