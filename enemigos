@@ -75,11 +75,13 @@ public class principal {
 							System.out.println("El personaje ya existe");
 							respuesta = "No";
 						}
+						else {
+							respuesta = "Si";
+						}
 
 					}
 
 					} while (respuesta.equals("No"));
-					respuesta = "Si";
 					
 					System.out.println("Elija su clase: ");
 					System.out.println("Luchador / Hechicero");
@@ -105,8 +107,11 @@ public class principal {
 					for (int i = 0; i < fisicos.length;i++) {
 						if (fisico1 != fisicos[i] || fisico2 != fisicos[i]) {
 							System.out.println("Indique un atributo existente");
-							respuesta = "Si";
+							respuesta = "No";
 							i = fisicos.length;
+						}
+						else {
+							respuesta = "Si";
 						}
 					}
 					} while (respuesta.equals("No"));
@@ -122,8 +127,11 @@ public class principal {
 					for (int i = 0; i < magicos.length;i++) {
 						if (magico1 != magicos[i] || magico2 != magicos[i]) {
 							System.out.println("Indique un atributo existente");
-							respuesta = "Si";
+							respuesta = "No";
 							i = magicos.length;
+						}
+						else {
+							respuesta = "Si";
 						}
 					}
 					} while (respuesta.equals("No"));
@@ -138,8 +146,11 @@ public class principal {
 					for (int i = 0; i < eficacias.length;i++) {
 						if (eficacia != eficacias[i]) {
 							System.out.println("Indique un atributo existente");
-							respuesta = "Si";
+							respuesta = "No";
 							i = eficacias.length;
+						}
+						else {
+							respuesta = "Si";
 						}
 					}
 					} while (respuesta.equals("No"));
