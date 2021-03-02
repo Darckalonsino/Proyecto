@@ -10,7 +10,7 @@ public class principal {
 	public static void main(String[] args) {
 		String respuesta="Si", clase, fisico1, fisico2, magico1, magico2, eficacia, nombre="", fisicos[], magicos[], eficacias[], equip1, equip2;
 		boolean guantes=false, sombrero=false, pechera=false, tunica=false;
-		int opcion, hp=0, dmg=0;
+		int opcion, hp=0, dmg=0, contador= 0;;
 		Scanner sc = new Scanner(System.in);
 		ArrayList <personaje> arrayPersonaje = new ArrayList<personaje>();
 		ArrayList <enemigos> arrayEnemigos = new ArrayList<enemigos>();
@@ -21,15 +21,15 @@ public class principal {
 		//Creacion de enemigos
 		e1 = new enemigos(nombre, hp);
 		e1.setNombre("Slime Gigante");// Debilidades - Agilidad, Velocidad, Gravitacion, Petrificacion 
-		e1.setHp(400);				 // Ventajas - Fuerza, Astucia , Ilusionismo, Espiritualismo
+		e1.setHp(500);				 // Ventajas - Fuerza, Astucia , Ilusionismo, Espiritualismo
 		arrayEnemigos.add(e1);	
 		e2 = new enemigos(nombre, hp);
 		e2.setNombre("Jinete Fantasma"); // Debilidades - Velocidad, Agilidad, Ilusionismo, Espiritualismo
-		e2.setHp(800);					// Ventajas - Fuerza, Astucia, Petrificacion, Gravitacion
+		e2.setHp(1000);					// Ventajas - Fuerza, Astucia, Petrificacion, Gravitacion
 		arrayEnemigos.add(e2);		
 		e3 = new enemigos(nombre, hp);
 		e3.setNombre("Dragon Ilusorio");// Debilidades -  Fuerza, Astucia, Agilidad, Petrificacion, Gravitacion
-		e3.setHp(1200);				   // Ventajas - Velocidad, Agilidad, Ilusionismo, Espiritualismo
+		e3.setHp(1500);				   // Ventajas - Velocidad, Agilidad, Ilusionismo, Espiritualismo
 		arrayEnemigos.add(e3);		  
 		//Creacion de habilidades
 		fisicos = new String [4];
@@ -64,42 +64,125 @@ public class principal {
 				case 1:
 					System.out.println("Cada personaje creado solo puede tener 2 atributos fisicos, 2 atributos magicos y 1 efectividad");
 					
-					System.out.print("Indique el nombre de su personaje: ");
-					nombre = sc.next();
+					do {
 					
-					System.out.println("Elija su clase: ");
-					System.out.println("Luchador / Hechicero");
-					clase = sc.next();
+						System.out.print("Indique el nombre de su personaje: ");
+						nombre = sc.next();
+					Iterator<personaje> probar = arrayPersonaje.iterator();
+					while(probar.hasNext()) {
+						personaje nombrePer = probar.next();	
+						if (nombrePer.getNombre().equals(nombre)){
+							System.out.println("El personaje ya existe");
+							respuesta = "No";
+						}
+						else {
+							respuesta = "Si";
+						}
+
+					}
+
+					} while (respuesta.equals("No"));
 					
+					do {
+						System.out.println("Elija su clase: ");
+						System.out.println("Luchador / Hechicero");
+						clase = sc.next();
+						if (!clase.equals("Luchador") || !clase.equals("Hechicero")) {
+							respuesta = "Si";
+						} 
+						// No me permite meter dos condiciones en un do while por eso estos if suplen la falta de uno en la condicion para salir
+						// La condicion que no me deja poner en este bucle es while(!clase.equals("Luchador") || !clase.equals("Hechicero"))
+					} while(respuesta.equals("No"));
 					
-					System.out.println("¿Desea equiparse la parte superior del equipamiento?");
-					System.out.println("Si o No");
-					equip1= sc.next();
+					do {
+						System.out.println("¿Desea equiparse la parte superior del equipamiento?");
+						System.out.println("Si o No");
+						equip1= sc.next();
+					} while(!equip1.equals("Si"));
 					
-					System.out.println("¿Desea equiparse la parte inferior del equipamiento?");
-					System.out.println("Si o No");
-					equip2= sc.next();
+					do {
+						System.out.println("¿Desea equiparse la parte inferior del equipamiento?");
+						System.out.println("Si o No");
+						equip2= sc.next();
+					} while (!equip2.equals("Si"));
+					//Recoger atributos fisicos
+					do {
+						System.out.println("Elija sus atributos fisicos");
+						Fisicos(fisicos);
+						System.out.print("Principal: ");
+						fisico1 = sc.next();
+						System.out.print("Secundario: ");
+						fisico2 = sc.next();
 					
+						for (int i = 0; i < fisicos.length;i++) {
+							if (fisico1.equals(fisicos[i])) {
+								contador++;
+							}
+							if (fisico2.equals(fisicos[i])) {
+								contador++;
+							}
+						}
+						if (contador == 2) {
+							respuesta = "Si";
+							contador = 0;
+						}
+						else if (contador != 2) {
+							System.out.println("Indique un atributo existente");
+							respuesta = "No";
+							contador = 0;
+						}
+					} while (respuesta.equals("No"));
+					//Recoger atributos magicos
+					do {
+						System.out.println("Elija sus atributos magicos");
+						Magicos(magicos);
+						System.out.print("Principal: ");
+						magico1 = sc.next();
+						System.out.print("Secundario: ");
+						magico2 = sc.next();
 					
-					System.out.println("Elija sus atributos fisicos");
-					Fisicos(fisicos);
-					System.out.print("Principal: ");
-					fisico1 = sc.next();
-					System.out.print("Secundario: ");
-					fisico2 = sc.next();
+						for (int i = 0; i < magicos.length;i++) {
+							if (magico1.equals(magicos[i])) {
+								contador++;
+							}
+							if (magico2.equals(magicos[i])) {
+								contador++;
+							}
+						}
+						if (contador == 2) {
+							respuesta = "Si";
+							contador = 0;
+						}
+						else if (contador != 2) {
+							System.out.println("Indique un atributo existente");
+							respuesta = "No";
+							contador = 0;
+						}
+					} while (respuesta.equals("No"));
 					
-					System.out.println("Elija sus atributos magicos");
-					Magicos(magicos);
-					System.out.print("Principal: ");
-					magico1 = sc.next();
-					System.out.print("Secundario: ");
-					magico2 = sc.next();
-					
+					//Recoger atributos titulo
+					do {
 					System.out.println("Elija su titulo");
 					Titulos(eficacias);
 					sc.nextLine(); //Este nextLine es para corregir un error al recoger la variable del titulo
 					eficacia = sc.nextLine();
 
+						for (int i = 0; i < eficacias.length;i++) {
+							if (eficacia.equals(eficacias[i])) {
+								contador++;
+							}
+						}
+						if (contador == 1) {
+							respuesta = "Si";
+							contador = 0;
+						}
+						else if (contador != 1) {
+							System.out.println("Indique un atributo existente");
+							respuesta = "No";
+							contador = 0;
+						}
+					} while (respuesta.equals("No"));
+					
 				
 					if (clase.equals("Luchador")) {
 						p1 = new luchador(nombre, fisico1, fisico2, magico1, magico2, eficacia, guantes, pechera);
@@ -146,7 +229,6 @@ public class principal {
 						System.out.println("Sombrero: " + ((hechicero)p1).isSombrero());		
 						arrayPersonaje.add(p1);
 					}
-					
 				break;
 				case 2:
 					Iterator<personaje> verPer = arrayPersonaje.iterator();
@@ -166,9 +248,23 @@ public class principal {
 					
 				break;
 				case 3:
-
-					System.out.println("Indica el nombre del personaje que vas a usar: ");
-					nombre = sc.next();
+					respuesta = "No";
+					do {
+						System.out.println("Indica el nombre del personaje que vas a usar: ");
+						nombre = sc.next();
+							Iterator<personaje> probar = arrayPersonaje.iterator();
+							while(probar.hasNext()) {
+								personaje nombrePer = probar.next();	
+								if (!nombrePer.getNombre().equals(nombre)){
+									System.out.println("El personaje no existe");
+									respuesta = "No";
+								}
+								else {
+									respuesta = "Si";
+								}
+		
+							}
+					} while (respuesta.equals("No"));
 					
 					Iterator<personaje> itPersonaje = arrayPersonaje.iterator();
 					while(itPersonaje.hasNext()) {
@@ -245,9 +341,6 @@ public class principal {
 					Magicos(magicos);
 					System.out.println("Entre los titulos podemos encontrar: ");
 					Titulos(magicos);
-					System.out.println("Ten encuenta que el daño maximo que le puede hacer a un enemigo es de 120 ");
-					System.out.println("Asi que en caso de que le hagas muy poco daño es recomendable cambiar de personaje");
-					System.out.println("Tambien puedes llegar a hacer daño negativo lo que resultaria en curar al enemigo por encima de su vida maxima");
 
 				break;
 				default: 
@@ -257,9 +350,14 @@ public class principal {
 	}
 
 	public static String Repeticion(String respuesta, Scanner sc) {
+		do {
 		System.out.println("Su combate ha terminado deasea usar al mismo personaje?");
 		System.out.println("Si o No");
 		respuesta = sc.next();
+		if (!respuesta.equals("Si")) {
+			respuesta = "No";
+		}
+		} while(!respuesta.equals("Si"));
 		return respuesta;
 	}
 	public static void Fisicos(String fisicos[]) {
