@@ -1,0 +1,68 @@
+package juego;
+
+import java.util.Scanner;
+//System.out.println();
+
+public class principal {
+
+	public static void main(String[] args) {
+			int opcion;
+			String fisicos[], magicos[], eficacias[];
+			Scanner sc = new Scanner(System.in);
+			administracion admin = new administracion();
+			
+			System.out.println("RPG Dungeon");
+			System.out.println("Bienvenido");
+			System.out.println("Que acción desea realizar?");
+			System.out.println("1. Crear un nuevo personaje");
+			System.out.println("2. Ver personajes creados");
+			System.out.println("3. Entrar en la mazmorra");
+			System.out.println("4. Crear un enemigo");
+			System.out.println("5. Intrucciones");
+			System.out.println("6. Salir");
+			opcion = sc.nextInt();
+			
+			//Creacion de habilidades
+			fisicos = new String [4];
+			fisicos [0] = "Fuerza";
+			fisicos [1] = "Agilidad";
+			fisicos [2] = "Velocidad";
+			fisicos [3] = "Astucia";
+			
+			magicos = new String [4];
+			magicos [0] = "Petrificacion";
+			magicos [1] = "Espiritualismo";
+			magicos [2] = "Gravitacion";
+			magicos [3] = "Ilusionismo";
+
+			eficacias = new String [3];
+			eficacias [0] = "Caballero de la corrosion";
+			eficacias [1] = "Guardian de lo intangible";
+			eficacias [2] = "Villano delirante";
+		do {
+			switch (opcion) {
+				case 1: 
+					admin.CrearPersonaje();
+				break;
+				case 2:
+					admin.VerPersonajes();
+				break;
+				case 3:
+					admin.Mazmorra();
+				break;
+				case 4:
+					admin.CrearEnemigo();
+				break;
+				case 5:
+					admin.Instrucciones(fisicos, magicos, eficacias);
+				break;
+				default:
+					System.out.println("Indique un valor valido");
+			}
+		} while (opcion != 0);
+		
+	}
+
+	
+
+}
