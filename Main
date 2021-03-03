@@ -11,16 +11,6 @@ public class principal {
 			Scanner sc = new Scanner(System.in);
 			administracion admin = new administracion();
 			
-			System.out.println("RPG Dungeon");
-			System.out.println("Bienvenido");
-			System.out.println("Que acción desea realizar?");
-			System.out.println("1. Crear un nuevo personaje");
-			System.out.println("2. Ver personajes creados");
-			System.out.println("3. Entrar en la mazmorra");
-			System.out.println("4. Crear un enemigo");
-			System.out.println("5. Intrucciones");
-			System.out.println("6. Salir");
-			opcion = sc.nextInt();
 			
 			//Creacion de habilidades
 			fisicos = new String [4];
@@ -39,10 +29,24 @@ public class principal {
 			eficacias [0] = "Caballero de la corrosion";
 			eficacias [1] = "Guardian de lo intangible";
 			eficacias [2] = "Villano delirante";
+			
+			
 		do {
+			
+			System.out.println("RPG Dungeon");
+			System.out.println("Bienvenido");
+			System.out.println("Que acción desea realizar?");
+			System.out.println("1. Crear un nuevo personaje");
+			System.out.println("2. Ver personajes creados");
+			System.out.println("3. Entrar en la mazmorra");
+			System.out.println("4. Crear un enemigo");
+			System.out.println("5. Intrucciones");
+			System.out.println("6. Salir");
+			opcion = sc.nextInt();
+			
 			switch (opcion) {
 				case 1: 
-					admin.CrearPersonaje();
+					admin.CrearPersonaje(fisicos, magicos, eficacias);
 				break;
 				case 2:
 					admin.VerPersonajes();
@@ -51,7 +55,7 @@ public class principal {
 					admin.Mazmorra();
 				break;
 				case 4:
-					admin.CrearEnemigo();
+					admin.CrearEnemigo(fisicos, magicos, eficacias);
 				break;
 				case 5:
 					admin.Instrucciones(fisicos, magicos, eficacias);
