@@ -6,10 +6,9 @@ import java.util.Scanner;
 
 public class administracion {
 	String respuesta="Si", clase, fisico1, fisico2, magico1, magico2, eficacia, nombre="", equip1, equip2;
-	boolean victoria=false, guantes=false, sombrero=false, pechera=false, tunica=false;
+	boolean victoria=false, guantes=false, sombrero=false, pechera=false, tunica=false, existe= false;
 	int hp =0, opcion, contador=0;
 	Scanner sc = new Scanner(System.in);
-	
 	ArrayList <personaje> arrayPersonaje = new ArrayList<personaje>();
 	ArrayList <enemigos> arrayEnemigos = new ArrayList<enemigos>();
 	personaje p1;
@@ -18,20 +17,6 @@ public class administracion {
 	enemigos e3;
 	enemigos e4;
 	protected void CrearPersonaje(String fisicos[], String magicos[], String eficacias[]) {
-		e4 = new enemigos();
-		//Creacion de enemigos
-		e1 = new enemigos(nombre, hp);
-		e1.setNombre("Slime Gigante");// Debilidades - Agilidad, Velocidad, Gravitacion, Petrificacion 
-		e1.setHp(500);				 // Ventajas - Fuerza, Astucia , Ilusionismo, Espiritualismo
-		arrayEnemigos.add(e1);	
-		e2 = new enemigos(nombre, hp);
-		e2.setNombre("Jinete Fantasma"); // Debilidades - Velocidad, Agilidad, Ilusionismo, Espiritualismo
-		e2.setHp(1000);					// Ventajas - Fuerza, Astucia, Petrificacion, Gravitacion
-		arrayEnemigos.add(e2);		
-		e3 = new enemigos(nombre, hp);
-		e3.setNombre("Dragon Ilusorio");// Debilidades -  Fuerza, Astucia, Agilidad, Petrificacion, Gravitacion
-		e3.setHp(1500);				   // Ventajas - Velocidad, Agilidad, Ilusionismo, Espiritualismo
-		arrayEnemigos.add(e3);		  
 		System.out.println("Cada personaje creado solo puede tener 2 atributos fisicos, 2 atributos magicos y 1 efectividad");
 		
 		do {
@@ -213,13 +198,7 @@ public class administracion {
 		}
 	}
 	
-	protected void Mazmorra() {
-		String enemigo="" , opcion2, EF1, EF2, EM1, EM2;
-		personaje p1;
-		enemigos e1;
-		enemigos e2;
-		enemigos e3;
-		enemigos e4;
+	protected void EnemigosPredefinidos() {
 		e4 = new enemigos();
 		//Creacion de enemigos
 		e1 = new enemigos(nombre, hp);
@@ -233,8 +212,28 @@ public class administracion {
 		e3 = new enemigos(nombre, hp);
 		e3.setNombre("Dragon Ilusorio");// Debilidades -  Fuerza, Astucia, Agilidad, Petrificacion, Gravitacion
 		e3.setHp(1500);				   // Ventajas - Velocidad, Agilidad, Ilusionismo, Espiritualismo
-		arrayEnemigos.add(e3);		  
-		
+		arrayEnemigos.add(e3);	
+		existe = true;
+	}
+	
+	protected void Mazmorra() {
+		String enemigo="", EF1, EF2, EM1, EM2;
+		if (existe == false) {
+			e4 = new enemigos();
+			//Creacion de enemigos
+			e1 = new enemigos(nombre, hp);
+			e1.setNombre("Slime Gigante");// Debilidades - Agilidad, Velocidad, Gravitacion, Petrificacion 
+			e1.setHp(500);				 // Ventajas - Fuerza, Astucia , Ilusionismo, Espiritualismo
+			arrayEnemigos.add(e1);	
+			e2 = new enemigos(nombre, hp);
+			e2.setNombre("Jinete Fantasma"); // Debilidades - Velocidad, Agilidad, Ilusionismo, Espiritualismo
+			e2.setHp(1000);					// Ventajas - Fuerza, Astucia, Petrificacion, Gravitacion
+			arrayEnemigos.add(e2);		
+			e3 = new enemigos(nombre, hp);
+			e3.setNombre("Dragon Ilusorio");// Debilidades -  Fuerza, Astucia, Agilidad, Petrificacion, Gravitacion
+			e3.setHp(1500);				   // Ventajas - Velocidad, Agilidad, Ilusionismo, Espiritualismo
+			arrayEnemigos.add(e3);		  
+		}
 		respuesta = "No";
 		do {
 			System.out.println("Indica el nombre del personaje que vas a usar: ");
@@ -357,42 +356,22 @@ public class administracion {
 	
 	protected void CrearEnemigo(String fisicos[], String magicos[], String eficacias[]) {
 		String enemigo="" , opcion2;
-		personaje p1;
-		enemigos e1;
-		enemigos e2;
-		enemigos e3;
-		enemigos e4;
-		e4 = new enemigos();
-		//Creacion de enemigos
-		e1 = new enemigos(nombre, hp);
-		e1.setNombre("Slime Gigante");// Debilidades - Agilidad, Velocidad, Gravitacion, Petrificacion 
-		e1.setHp(500);				 // Ventajas - Fuerza, Astucia , Ilusionismo, Espiritualismo
-		arrayEnemigos.add(e1);	
-		e2 = new enemigos(nombre, hp);
-		e2.setNombre("Jinete Fantasma"); // Debilidades - Velocidad, Agilidad, Ilusionismo, Espiritualismo
-		e2.setHp(1000);					// Ventajas - Fuerza, Astucia, Petrificacion, Gravitacion
-		arrayEnemigos.add(e2);		
-		e3 = new enemigos(nombre, hp);
-		e3.setNombre("Dragon Ilusorio");// Debilidades -  Fuerza, Astucia, Agilidad, Petrificacion, Gravitacion
-		e3.setHp(1500);				   // Ventajas - Velocidad, Agilidad, Ilusionismo, Espiritualismo
-		arrayEnemigos.add(e3);		  
-		//Creacion de habilidades
-		fisicos = new String [4];
-		fisicos [0] = "Fuerza";
-		fisicos [1] = "Agilidad";
-		fisicos [2] = "Velocidad";
-		fisicos [3] = "Astucia";
-		
-		magicos = new String [4];
-		magicos [0] = "Petrificacion";
-		magicos [1] = "Espiritualismo";
-		magicos [2] = "Gravitacion";
-		magicos [3] = "Ilusionismo";
-
-		eficacias = new String [3];
-		eficacias [0] = "Caballero de la corrosion";
-		eficacias [1] = "Guardian de lo intangible";
-		eficacias [2] = "Villano delirante";
+		if (existe == false) {
+			e4 = new enemigos();
+			//Creacion de enemigos
+			e1 = new enemigos(nombre, hp);
+			e1.setNombre("Slime Gigante");// Debilidades - Agilidad, Velocidad, Gravitacion, Petrificacion 
+			e1.setHp(500);				 // Ventajas - Fuerza, Astucia , Ilusionismo, Espiritualismo
+			arrayEnemigos.add(e1);	
+			e2 = new enemigos(nombre, hp);
+			e2.setNombre("Jinete Fantasma"); // Debilidades - Velocidad, Agilidad, Ilusionismo, Espiritualismo
+			e2.setHp(1000);					// Ventajas - Fuerza, Astucia, Petrificacion, Gravitacion
+			arrayEnemigos.add(e2);		
+			e3 = new enemigos(nombre, hp);
+			e3.setNombre("Dragon Ilusorio");// Debilidades -  Fuerza, Astucia, Agilidad, Petrificacion, Gravitacion
+			e3.setHp(1500);				   // Ventajas - Velocidad, Agilidad, Ilusionismo, Espiritualismo
+			arrayEnemigos.add(e3);	
+		}
 		if (victoria == false) {
 			System.out.println("Tienes que derrotar a todos los enemigos de la mazmorra par acceder a esta opcion");
 		}
