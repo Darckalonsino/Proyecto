@@ -5,20 +5,19 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class administracion {
+	String respuesta="Si", clase, fisico1, fisico2, magico1, magico2, eficacia, nombre="", equip1, equip2;
+	boolean victoria=false, guantes=false, sombrero=false, pechera=false, tunica=false;
+	int hp =0, opcion, contador=0;
+	Scanner sc = new Scanner(System.in);
 	
-	
-	protected void CrearPersonaje() {
-		String respuesta="Si", clase, fisico1, fisico2, magico1, magico2, eficacia, nombre="", fisicos[], magicos[], eficacias[], equip1, equip2, enemigo="R" , opcion2, EF1, EF2, EM1, EM2;
-		boolean guantes=false, sombrero=false, pechera=false, tunica=false, victoria=false;
-		int opcion, hp=0, dmg=0, contador= 0;
-		Scanner sc = new Scanner(System.in);
-		ArrayList <personaje> arrayPersonaje = new ArrayList<personaje>();
-		ArrayList <enemigos> arrayEnemigos = new ArrayList<enemigos>();
-		personaje p1;
-		enemigos e1;
-		enemigos e2;
-		enemigos e3;
-		enemigos e4;
+	ArrayList <personaje> arrayPersonaje = new ArrayList<personaje>();
+	ArrayList <enemigos> arrayEnemigos = new ArrayList<enemigos>();
+	personaje p1;
+	enemigos e1;
+	enemigos e2;
+	enemigos e3;
+	enemigos e4;
+	protected void CrearPersonaje(String fisicos[], String magicos[], String eficacias[]) {
 		e4 = new enemigos();
 		//Creacion de enemigos
 		e1 = new enemigos(nombre, hp);
@@ -33,24 +32,6 @@ public class administracion {
 		e3.setNombre("Dragon Ilusorio");// Debilidades -  Fuerza, Astucia, Agilidad, Petrificacion, Gravitacion
 		e3.setHp(1500);				   // Ventajas - Velocidad, Agilidad, Ilusionismo, Espiritualismo
 		arrayEnemigos.add(e3);		  
-		//Creacion de habilidades
-		fisicos = new String [4];
-		fisicos [0] = "Fuerza";
-		fisicos [1] = "Agilidad";
-		fisicos [2] = "Velocidad";
-		fisicos [3] = "Astucia";
-		
-		magicos = new String [4];
-		magicos [0] = "Petrificacion";
-		magicos [1] = "Espiritualismo";
-		magicos [2] = "Gravitacion";
-		magicos [3] = "Ilusionismo";
-
-		eficacias = new String [3];
-		eficacias [0] = "Caballero de la corrosion";
-		eficacias [1] = "Guardian de lo intangible";
-		eficacias [2] = "Villano delirante";
-		//Titulo
 		System.out.println("Cada personaje creado solo puede tener 2 atributos fisicos, 2 atributos magicos y 1 efectividad");
 		
 		do {
@@ -145,14 +126,14 @@ public class administracion {
 		} while (respuesta.equals("No"));
 		
 		//Recoger atributos titulo
-		do {
+		//do {
 			contador = 0;
 		System.out.println("Elija su titulo");
 		Titulos(eficacias);
-		sc.next(); //Este next es para corregir un error al recoger la variable del titulo
+		sc.nextLine(); //Este next es para corregir un error al recoger la variable del titulo
 		eficacia = sc.nextLine();
-		System.out.println(eficacias);
-		for (int i = 0; i < eficacias.length;i++) {
+		//System.out.println(eficacias);
+		/*for (int i = 0; i < eficacias.length;i++) {
 				if (eficacia.equals(eficacias[i])) {
 					contador++;
 				}
@@ -164,7 +145,7 @@ public class administracion {
 				System.out.println("Indique un atributo existente");
 				respuesta = "No";
 			}
-		} while (contador != 1);
+		} while (contador != 1);*/
 		//No llega a funcionar del todo bien, al repetir el bucle por segunda vez el programa se para
 		
 	
@@ -215,7 +196,7 @@ public class administracion {
 		}
 	}
 	
-	protected void VerPersonajes(ArrayList <personaje> arrayPersonaje) {
+	protected void VerPersonajes() {
 		Iterator<personaje> verPer = arrayPersonaje.iterator();
 		while(verPer.hasNext()) {
 			personaje nombrePersonaje = verPer.next();
@@ -233,12 +214,7 @@ public class administracion {
 	}
 	
 	protected void Mazmorra() {
-		String respuesta="Si", clase, fisico1, fisico2, magico1, magico2, eficacia, nombre="", fisicos[], magicos[], eficacias[], equip1, equip2, enemigo="R" , opcion2, EF1, EF2, EM1, EM2;
-		boolean guantes=false, sombrero=false, pechera=false, tunica=false, victoria=false;
-		int opcion, hp=0, dmg=0, contador= 0;
-		Scanner sc = new Scanner(System.in);
-		ArrayList <personaje> arrayPersonaje = new ArrayList<personaje>();
-		ArrayList <enemigos> arrayEnemigos = new ArrayList<enemigos>();
+		String enemigo="" , opcion2, EF1, EF2, EM1, EM2;
 		personaje p1;
 		enemigos e1;
 		enemigos e2;
@@ -258,23 +234,7 @@ public class administracion {
 		e3.setNombre("Dragon Ilusorio");// Debilidades -  Fuerza, Astucia, Agilidad, Petrificacion, Gravitacion
 		e3.setHp(1500);				   // Ventajas - Velocidad, Agilidad, Ilusionismo, Espiritualismo
 		arrayEnemigos.add(e3);		  
-		//Creacion de habilidades
-		fisicos = new String [4];
-		fisicos [0] = "Fuerza";
-		fisicos [1] = "Agilidad";
-		fisicos [2] = "Velocidad";
-		fisicos [3] = "Astucia";
 		
-		magicos = new String [4];
-		magicos [0] = "Petrificacion";
-		magicos [1] = "Espiritualismo";
-		magicos [2] = "Gravitacion";
-		magicos [3] = "Ilusionismo";
-
-		eficacias = new String [3];
-		eficacias [0] = "Caballero de la corrosion";
-		eficacias [1] = "Guardian de lo intangible";
-		eficacias [2] = "Villano delirante";
 		respuesta = "No";
 		do {
 			System.out.println("Indica el nombre del personaje que vas a usar: ");
@@ -395,13 +355,8 @@ public class administracion {
 		respuesta = "Si";
 	}
 	
-	protected void CrearEnemigo() {
-		String respuesta="Si", clase, fisico1, fisico2, magico1, magico2, eficacia, nombre="", fisicos[], magicos[], eficacias[], equip1, equip2, enemigo="R" , opcion2, EF1, EF2, EM1, EM2;
-		boolean guantes=false, sombrero=false, pechera=false, tunica=false, victoria=false;
-		int opcion, hp=0, dmg=0, contador= 0;
-		Scanner sc = new Scanner(System.in);
-		ArrayList <personaje> arrayPersonaje = new ArrayList<personaje>();
-		ArrayList <enemigos> arrayEnemigos = new ArrayList<enemigos>();
+	protected void CrearEnemigo(String fisicos[], String magicos[], String eficacias[]) {
+		String enemigo="" , opcion2;
 		personaje p1;
 		enemigos e1;
 		enemigos e2;
