@@ -20,23 +20,21 @@ public class administracion {
 		System.out.println("Cada personaje creado solo puede tener 2 atributos fisicos, 2 atributos magicos y 1 efectividad");
 		
 		do {
-		
+		contador = 0;
 			System.out.print("Indique el nombre de su personaje: ");
 			nombre = sc.next();
 		Iterator<personaje> probar = arrayPersonaje.iterator();
 		while(probar.hasNext()) {
 			personaje nombrePer = probar.next();	
 			if (nombrePer.getNombre().equals(nombre)){
-				System.out.println("El personaje ya existe");
-				respuesta = "No";
+				contador++; 
 			}
-			else {
-				respuesta = "Si";
-			}
+		}
+		if (contador > 0) {
+			System.out.println("El personaje ya existe");
 
 		}
-
-		} while (respuesta.equals("No"));
+		} while (contador > 0);
 		
 		do {
 			System.out.println("Elija su clase: ");
@@ -235,22 +233,6 @@ public class administracion {
 			arrayEnemigos.add(e3);		  
 		}
 		respuesta = "No";
-		do {
-			System.out.println("Indica el nombre del personaje que vas a usar: ");
-			nombre = sc.next();
-				Iterator<personaje> probar = arrayPersonaje.iterator();
-				while(probar.hasNext()) {
-					personaje nombrePer = probar.next();	
-					if (!nombrePer.getNombre().equals(nombre)){
-						System.out.println("El personaje no existe");
-						respuesta = "No";
-					}
-					else {
-						respuesta = "Si";
-					}
-
-				}
-		} while (respuesta.equals("No"));
 		
 		if (victoria == true) {
 			do {
@@ -259,18 +241,32 @@ public class administracion {
 					Iterator<enemigos> probar = arrayEnemigos.iterator();
 					while(probar.hasNext()) {
 						enemigos nombreEnemigo = probar.next();	
-						if (!nombreEnemigo.getNombre().equals(enemigo)){
-							System.out.println("El enemigo no existe");
-							respuesta = "No";
+						if (nombreEnemigo.getNombre().equals(nombre)){
+							contador++;
 						}
-						else {
-							respuesta = "Si";
-						}
-
 					}
-			} while (respuesta.equals("No"));
+					if (contador <= 0) {
+						System.out.println("El personaje no existe");
+					}
+			} while (contador <= 0);
 		}
 		
+		do {
+			contador = 0;
+			System.out.println("Indica el nombre del personaje que vas a usar: ");
+			nombre = sc.next();
+				Iterator<personaje> probar = arrayPersonaje.iterator();
+				while(probar.hasNext()) {
+					personaje nombrePer = probar.next();	
+					if (nombrePer.getNombre().equals(nombre)){
+						contador++;
+					}
+				}
+				if (contador <= 0) {
+					System.out.println("El personaje no existe");
+				}
+
+		} while (contador <= 0);
 		
 		//Recoger Stadisticas del heroe
 		Iterator<personaje> itPersonaje = arrayPersonaje.iterator();
@@ -278,7 +274,6 @@ public class administracion {
 			personaje nombrePersonaje = itPersonaje.next();
 			if(nombrePersonaje.getNombre().equals(nombre)) {
 				System.out.println("Has escogido al heroe " + nombrePersonaje.getNombre());
-				
 				nombre = nombrePersonaje.getNombre();
 				fisico1 = nombrePersonaje.getFisico1();
 				fisico2 = nombrePersonaje.getFisico2();
@@ -332,7 +327,6 @@ public class administracion {
 									hp = nombreEnemigo.getHp();
 									hp = nombreEnemigo.CombateExtra(nombre, fisico1, fisico2, magico1, magico2, hp, guantes, pechera, tunica, sombrero, EF1, EF2, EM1, EM2, enemigo, equip1, equip2);
 									respuesta = FinalizarCombate(respuesta, hp, nombreEnemigo, sc);
-									respuesta = "Si";
 								}
 								else {
 									System.out.println("El enemigo no existe");
@@ -387,11 +381,11 @@ public class administracion {
 						do {
 						
 							System.out.print("Indique el nombre del enemigo: ");
-							enemigo = sc.next();
+							nombre = sc.next();
 						Iterator<enemigos> probar = arrayEnemigos.iterator();
 						while(probar.hasNext()) {
 							enemigos nombrePer = probar.next();	
-							if (nombrePer.getNombre().equals(enemigo)){
+							if (nombrePer.getNombre().equals(nombre)){
 								System.out.println("El enemigo ya existe");
 								respuesta = "No";
 							}
@@ -416,7 +410,7 @@ public class administracion {
 						} while(!equip1.equals("Si") && !equip1.equals("No"));
 						
 						do {
-							System.out.println("¿Interfiere el equipamiento superior?");
+							System.out.println("¿Interfiere el equipamiento inferior?");
 							System.out.println("Si o No");
 							equip2= sc.next();
 						} while (!equip2.equals("Si") && !equip2.equals("No"));
