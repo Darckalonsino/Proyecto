@@ -1,401 +1,72 @@
 package juego;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Scanner;
 //System.out.println();
 
 public class principal {
 
 	public static void main(String[] args) {
-		String respuesta="Si", clase, fisico1, fisico2, magico1, magico2, eficacia, nombre="", fisicos[], magicos[], eficacias[], equip1, equip2;
-		boolean guantes=false, sombrero=false, pechera=false, tunica=false;
-		int opcion, hp=0, dmg=0, contador= 0;;
-		Scanner sc = new Scanner(System.in);
-		ArrayList <personaje> arrayPersonaje = new ArrayList<personaje>();
-		ArrayList <enemigos> arrayEnemigos = new ArrayList<enemigos>();
-		personaje p1;
-		enemigos e1;
-		enemigos e2;
-		enemigos e3;
-		//Creacion de enemigos
-		e1 = new enemigos(nombre, hp);
-		e1.setNombre("Slime Gigante");// Debilidades - Agilidad, Velocidad, Gravitacion, Petrificacion 
-		e1.setHp(500);				 // Ventajas - Fuerza, Astucia , Ilusionismo, Espiritualismo
-		arrayEnemigos.add(e1);	
-		e2 = new enemigos(nombre, hp);
-		e2.setNombre("Jinete Fantasma"); // Debilidades - Velocidad, Agilidad, Ilusionismo, Espiritualismo
-		e2.setHp(1000);					// Ventajas - Fuerza, Astucia, Petrificacion, Gravitacion
-		arrayEnemigos.add(e2);		
-		e3 = new enemigos(nombre, hp);
-		e3.setNombre("Dragon Ilusorio");// Debilidades -  Fuerza, Astucia, Agilidad, Petrificacion, Gravitacion
-		e3.setHp(1500);				   // Ventajas - Velocidad, Agilidad, Ilusionismo, Espiritualismo
-		arrayEnemigos.add(e3);		  
-		//Creacion de habilidades
-		fisicos = new String [4];
-		fisicos [0] = "Fuerza";
-		fisicos [1] = "Agilidad";
-		fisicos [2] = "Velocidad";
-		fisicos [3] = "Astucia";
-		
-		magicos = new String [4];
-		magicos [0] = "Petrificacion";
-		magicos [1] = "Espiritualismo";
-		magicos [2] = "Gravitacion";
-		magicos [3] = "Ilusionismo";
+			int opcion;
+			String fisicos[], magicos[], eficacias[];
+			Scanner sc = new Scanner(System.in);
+			administracion admin = new administracion();
+			
+			
+			//Creacion de habilidades
+			fisicos = new String [4];
+			fisicos [0] = "Fuerza";
+			fisicos [1] = "Agilidad";
+			fisicos [2] = "Velocidad";
+			fisicos [3] = "Astucia";
+			
+			magicos = new String [4];
+			magicos [0] = "Petrificacion";
+			magicos [1] = "Espiritualismo";
+			magicos [2] = "Gravitacion";
+			magicos [3] = "Ilusionismo";
 
-		eficacias = new String [3];
-		eficacias [0] = "Caballero de la corrosion";
-		eficacias [1] = "Guardian de lo intangible";
-		eficacias [2] = "Villano delirante";
-		//Titulo
-		System.out.println("RPG Dungeon");
-		System.out.println("Bienvenido");
+			eficacias = new String [3];
+			eficacias [0] = "Caballero de la corrosion";
+			eficacias [1] = "Guardian de lo intangible";
+			eficacias [2] = "Villano delirante";
+			admin.EnemigosPredefinidos();
+			
 		do {
+			
+			System.out.println("RPG Dungeon");
+			System.out.println("Bienvenido");
 			System.out.println("Que acción desea realizar?");
 			System.out.println("1. Crear un nuevo personaje");
 			System.out.println("2. Ver personajes creados");
 			System.out.println("3. Entrar en la mazmorra");
-			System.out.println("4. Intrucciones");
-			System.out.println("5. Salir");
+			System.out.println("4. Crear un enemigo");
+			System.out.println("5. Intrucciones");
+			System.out.println("6. Salir");
 			opcion = sc.nextInt();
 			
-			switch(opcion) {
-				case 1:
-					System.out.println("Cada personaje creado solo puede tener 2 atributos fisicos, 2 atributos magicos y 1 efectividad");
-					
-					do {
-					
-						System.out.print("Indique el nombre de su personaje: ");
-						nombre = sc.next();
-					Iterator<personaje> probar = arrayPersonaje.iterator();
-					while(probar.hasNext()) {
-						personaje nombrePer = probar.next();	
-						if (nombrePer.getNombre().equals(nombre)){
-							System.out.println("El personaje ya existe");
-							respuesta = "No";
-						}
-						else {
-							respuesta = "Si";
-						}
-
-					}
-
-					} while (respuesta.equals("No"));
-					
-					do {
-						System.out.println("Elija su clase: ");
-						System.out.println("Luchador / Hechicero");
-						clase = sc.next();
-						if (!clase.equals("Luchador") || !clase.equals("Hechicero")) {
-							respuesta = "Si";
-						} 
-						// No me permite meter dos condiciones en un do while por eso estos if suplen la falta de uno en la condicion para salir
-						// La condicion que no me deja poner en este bucle es while(!clase.equals("Luchador") || !clase.equals("Hechicero"))
-					} while(respuesta.equals("No"));
-					
-					do {
-						System.out.println("¿Desea equiparse la parte superior del equipamiento?");
-						System.out.println("Si o No");
-						equip1= sc.next();
-					} while(!equip1.equals("Si"));
-					
-					do {
-						System.out.println("¿Desea equiparse la parte inferior del equipamiento?");
-						System.out.println("Si o No");
-						equip2= sc.next();
-					} while (!equip2.equals("Si"));
-					//Recoger atributos fisicos
-					do {
-						System.out.println("Elija sus atributos fisicos");
-						Fisicos(fisicos);
-						System.out.print("Principal: ");
-						fisico1 = sc.next();
-						System.out.print("Secundario: ");
-						fisico2 = sc.next();
-					
-						for (int i = 0; i < fisicos.length;i++) {
-							if (fisico1.equals(fisicos[i])) {
-								contador++;
-							}
-							if (fisico2.equals(fisicos[i])) {
-								contador++;
-							}
-						}
-						if (contador == 2) {
-							respuesta = "Si";
-							contador = 0;
-						}
-						else if (contador != 2) {
-							System.out.println("Indique un atributo existente");
-							respuesta = "No";
-							contador = 0;
-						}
-					} while (respuesta.equals("No"));
-					//Recoger atributos magicos
-					do {
-						System.out.println("Elija sus atributos magicos");
-						Magicos(magicos);
-						System.out.print("Principal: ");
-						magico1 = sc.next();
-						System.out.print("Secundario: ");
-						magico2 = sc.next();
-					
-						for (int i = 0; i < magicos.length;i++) {
-							if (magico1.equals(magicos[i])) {
-								contador++;
-							}
-							if (magico2.equals(magicos[i])) {
-								contador++;
-							}
-						}
-						if (contador == 2) {
-							respuesta = "Si";
-							contador = 0;
-						}
-						else if (contador != 2) {
-							System.out.println("Indique un atributo existente");
-							respuesta = "No";
-							contador = 0;
-						}
-					} while (respuesta.equals("No"));
-					
-					//Recoger atributos titulo
-					do {
-					System.out.println("Elija su titulo");
-					Titulos(eficacias);
-					sc.nextLine(); //Este nextLine es para corregir un error al recoger la variable del titulo
-					eficacia = sc.nextLine();
-
-						for (int i = 0; i < eficacias.length;i++) {
-							if (eficacia.equals(eficacias[i])) {
-								contador++;
-							}
-						}
-						if (contador == 1) {
-							respuesta = "Si";
-							contador = 0;
-						}
-						else if (contador != 1) {
-							System.out.println("Indique un atributo existente");
-							respuesta = "No";
-							contador = 0;
-						}
-					} while (respuesta.equals("No"));
-					
-				
-					if (clase.equals("Luchador")) {
-						p1 = new luchador(nombre, fisico1, fisico2, magico1, magico2, eficacia, guantes, pechera);
-						if (equip1.equals("Si")) {
-							if (p1 instanceof luchador) {
-								((luchador)p1).setGuantes(true);
-							}
-						}
-						if (equip2.equals("Si")) {
-							if (p1 instanceof luchador) {
-								((luchador)p1).setPechera(true);
-							}
-						}
-
-						System.out.println("Nombre: " + p1.getNombre());
-						System.out.println("Destreza principal: " + p1.getFisico1());
-						System.out.println("Destreza secundaria: " + p1.getFisico2());
-						System.out.println("Magia principal: " + p1.getMagico1());
-						System.out.println("Magia secundaria: " + p1.getMagico2());
-						System.out.println("Titulo: " + p1.getEficacia());
-						System.out.println("Pechera: " + ((luchador)p1).isPechera());
-						System.out.println("Guantes: " + ((luchador)p1).isGuantes());					
-						arrayPersonaje.add(p1);
-					} 
-					else if (clase.equals("Hechicero")) {
-						p1 = new hechicero(nombre, fisico1, fisico2, magico1, magico2, eficacia, sombrero, tunica);
-						if (equip1.equals("Si")) {
-							if (p1 instanceof hechicero) {
-								((hechicero)p1).setSombrero(true);
-							}
-						}
-						if (equip2.equals("Si")) {
-							if (p1 instanceof hechicero) {
-								((hechicero)p1).setTunica(true);
-							}
-						}
-						System.out.println("Nombre: " + p1.getNombre());
-						System.out.println("Destreza principal: " + p1.getFisico1());
-						System.out.println("Destreza secundaria: " + p1.getFisico2());
-						System.out.println("Magia principal: " + p1.getMagico1());
-						System.out.println("Magia secundaria: " + p1.getMagico2());
-						System.out.println("Titulo: " + p1.getEficacia());
-						System.out.println("Tunica:" + ((hechicero)p1).isTunica());
-						System.out.println("Sombrero: " + ((hechicero)p1).isSombrero());		
-						arrayPersonaje.add(p1);
-					}
+			switch (opcion) {
+				case 1: 
+					admin.CrearPersonaje(fisicos, magicos, eficacias);
 				break;
 				case 2:
-					Iterator<personaje> verPer = arrayPersonaje.iterator();
-					while(verPer.hasNext()) {
-						personaje nombrePersonaje = verPer.next();
-						System.out.println("- Nombre: " + nombrePersonaje.getNombre());
-						System.out.println("Stats fisicos: Principal - " + nombrePersonaje.getFisico1() + " Secundario - " + nombrePersonaje.getFisico2());
-						System.out.println("Stats Magicos: Principal - " + nombrePersonaje.getMagico1() + " Secundario - " + nombrePersonaje.getMagico2());
-						System.out.println("Titulo: " + nombrePersonaje.getEficacia());
-						if (nombrePersonaje instanceof luchador) {
-							System.out.println("Equipamiento- Pechera: " + ((luchador)nombrePersonaje).isPechera() + " Guantes: "+ ((luchador)nombrePersonaje).isGuantes());
-						}
-						else if (nombrePersonaje instanceof hechicero) {
-							System.out.println("Equipamiento- Tunica: " + ((hechicero)nombrePersonaje).isTunica() + " Sombrero: " + ((hechicero)nombrePersonaje).isSombrero());
-						}
-					}
-					
+					admin.VerPersonajes();
 				break;
 				case 3:
-					respuesta = "No";
-					do {
-						System.out.println("Indica el nombre del personaje que vas a usar: ");
-						nombre = sc.next();
-							Iterator<personaje> probar = arrayPersonaje.iterator();
-							while(probar.hasNext()) {
-								personaje nombrePer = probar.next();	
-								if (!nombrePer.getNombre().equals(nombre)){
-									System.out.println("El personaje no existe");
-									respuesta = "No";
-								}
-								else {
-									respuesta = "Si";
-								}
-		
-							}
-					} while (respuesta.equals("No"));
-					
-					Iterator<personaje> itPersonaje = arrayPersonaje.iterator();
-					while(itPersonaje.hasNext()) {
-						personaje nombrePersonaje = itPersonaje.next();
-						if(nombrePersonaje.getNombre().equals(nombre)) {
-							System.out.println("Has escogido al heroe " + nombrePersonaje.getNombre());
-							//Recoger Stadisticas del heroe
-							nombre = nombrePersonaje.getNombre();
-							fisico1 = nombrePersonaje.getFisico1();
-							fisico2 = nombrePersonaje.getFisico2();
-							magico1 = nombrePersonaje.getFisico1();
-							magico2 = nombrePersonaje.getFisico2();
-							eficacia = nombrePersonaje.getEficacia();
-							if (nombrePersonaje instanceof luchador) {
-								pechera = ((luchador)nombrePersonaje).isPechera();
-								guantes = ((luchador)nombrePersonaje).isGuantes();
-							}
-							else if (nombrePersonaje instanceof hechicero) {
-								tunica = ((hechicero)nombrePersonaje).isTunica();
-								sombrero = ((hechicero)nombrePersonaje).isSombrero();
-							}
-							//Encuentro con enemigos
-							Iterator<enemigos> itEnemigos = arrayEnemigos.iterator();
-							while(itEnemigos.hasNext() && respuesta.equals("Si")) {
-								enemigos nombreEnemigo = itEnemigos.next();
-								hp = nombreEnemigo.getHp();
-								//COMBATE CONTRA EL PRIMER JEFE
-								while (respuesta.equals("Si") && hp > 0 && nombreEnemigo.getNombre().equals("Slime Gigante")) {
-								
-										hp = nombreEnemigo.CombateSlime(nombre, fisico1, fisico2, magico1, magico2, eficacia, hp, guantes, pechera, tunica, sombrero);
-										respuesta = FinalizarCombate(respuesta, hp, nombreEnemigo, sc);
-								 //Fin Combate Slime
-								} 
-								//COMBATE CONTRA EL SEGUNDO JEFE
-								while (respuesta.equals("Si") && hp > 0 && nombreEnemigo.getNombre().equals("Jinete Fantasma")) {
-
-									hp = nombreEnemigo.CombateJinete(nombre, fisico1, fisico2, magico1, magico2, eficacia, hp, guantes, pechera, tunica, sombrero);
-									respuesta = FinalizarCombate(respuesta, hp, nombreEnemigo, sc);
-							 //Fin Combate Jinete
-								}
-								//COMBATE CONTRA EL TERCER JEFE
-								while (respuesta.equals("Si") && hp > 0 && nombreEnemigo.getNombre().equals("Dragon Ilusorio")){
-									hp = nombreEnemigo.CombateDragon(nombre, fisico1, fisico2, magico1, magico2, eficacia, hp, guantes, pechera, tunica, sombrero);
-									respuesta = FinalizarCombate(respuesta, hp, nombreEnemigo, sc);
-								//Fin Combate Dragon
-								}
-								if (nombreEnemigo.getNombre().equals("Dragon Ilusorio") && hp <= 0) {
-									System.out.println("Has derrotado a todos los enemigos de la mazmorra");
-								}
-							}//Fin Combates contra enemigos
-						}//Fin personajes
-			}//Fin while mazmorra
-					
-					
-					respuesta = "Si";
-					
+					admin.Mazmorra();
 				break;
 				case 4:
-					System.out.println("Instrucciones");
-					System.out.println("El juego consiste en superar una mazmorra llena de enemigos, ");
-					System.out.println("tu trabajo será crear personajes capaces de vencer a los enemigos.");
-					System.out.println("Los enemigos tendran una cantidad de vida fija y les podrás atacar cuantas veces quieras ");
-					System.out.println("y con diferentes personajes en caso de ser necesario, los personajes creados se guardan y ");
-					System.out.println("se puden reutilizar para atacar cualquier enemigo.");
-					System.out.println();
-					System.out.println("El juego termina cuando eliminas a todos los enemigos de la mazmorra.");
-					System.out.println("Los personajes pueden tener hasta 4 atributos, 2 fisicos y 2 magicos, un titulo y 2 equipamientos, ");
-					System.out.println("los cuales pueden ser beneficiosos o contraproducentes dependiendo del tipo de enemigo contra el que te estes enfrentado. ");
-					System.out.println("Cada personaje tiene acceso a un titulo el cual le otorgará una mejora de atributos dependiendo de que ");
-					System.out.println("tipo de enemigo este combatiendo.");
-					System.out.println("Entre los atributos fisico podemos encontrar: ");
-					Fisicos(fisicos);
-					System.out.println("Entre los atributos magicos podemos encontrar: ");
-					Magicos(magicos);
-					System.out.println("Entre los titulos podemos encontrar: ");
-					Titulos(magicos);
-
+					admin.CrearEnemigo(fisicos, magicos, eficacias);
 				break;
-				default: 
-					System.out.println("Introduzca un valor valido");
+				case 5:
+					admin.Instrucciones(fisicos, magicos, eficacias);
+				break;
+				default:
+					System.out.println("Indique un valor valido");
 			}
-		} while (respuesta.equals("Si"));
-	}
-
-	public static String Repeticion(String respuesta, Scanner sc) {
-		do {
-		System.out.println("Su combate ha terminado deasea usar al mismo personaje?");
-		System.out.println("Si o No");
-		respuesta = sc.next();
-		if (!respuesta.equals("Si")) {
-			respuesta = "No";
-		}
-		} while(!respuesta.equals("Si"));
-		return respuesta;
-	}
-	public static void Fisicos(String fisicos[]) {
+		} while (opcion != 0);
 		
-		for (int i = 0;i < 4;i++) {
-			System.out.println(fisicos[i]);
-		}
+	}
 
-	}
-	public static void Magicos(String magicos[]) {
-		for (int i = 0;i < 4;i++) {
-			System.out.println(magicos[i]);
-		}
-	}
-	public static void Titulos(String eficacias[]) {
-		for (int i = 0;i < 3;i++) {
-			System.out.println(eficacias[i]);
-		}
-	}
 	
-	public static String FinalizarCombate(String respuesta, int hp, enemigos nombreEnemigo, Scanner sc) {
-		if(hp>0){
-            System.out.println("El " + nombreEnemigo.getNombre() + " se ha quedado a " + hp + " puntos de vida");
-            if (nombreEnemigo instanceof enemigos) {
-				((enemigos)nombreEnemigo).setHp(hp);
-            }
-            System.out.println("Desea utilizar el mismo personaje? Si o No");
-            respuesta = sc.next();
-		}
-        else if(hp<=0){
-        	System.out.println("Has derrotado al " + nombreEnemigo.getNombre());
-        	if (nombreEnemigo instanceof enemigos) {
-				((enemigos)nombreEnemigo).setHp(hp);
-            }
-        	System.out.println("Prepare su siguiente personaje para el proximo enemigo");
-        	respuesta = "No";
-        }
-		return respuesta;
-	}
 
 }
