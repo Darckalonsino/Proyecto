@@ -246,7 +246,7 @@ public class administracion {
 						}
 					}
 					if (contador <= 0) {
-						System.out.println("El personaje no existe");
+						System.out.println("El personaje ya existe");
 					}
 			} while (contador <= 0);
 		}
@@ -344,7 +344,7 @@ public class administracion {
 			}//Fin personajes
 }//Fin while mazmorra
 		
-		
+		contador = 0;
 		respuesta = "Si";
 	}
 	
@@ -379,23 +379,21 @@ public class administracion {
 						System.out.println("Los enemigos creado solo puede tener ventajas y debilidades 2 fisicos y 2 magicos");
 						
 						do {
-						
-							System.out.print("Indique el nombre del enemigo: ");
+							contador = 0;
+							System.out.println("Indica el nombre del enemigo: ");
 							nombre = sc.next();
-						Iterator<enemigos> probar = arrayEnemigos.iterator();
-						while(probar.hasNext()) {
-							enemigos nombrePer = probar.next();	
-							if (nombrePer.getNombre().equals(nombre)){
-								System.out.println("El enemigo ya existe");
-								respuesta = "No";
-							}
-							else {
-								respuesta = "Si";
-							}
+								Iterator<enemigos> probar = arrayEnemigos.iterator();
+								while(probar.hasNext()) {
+									enemigos nombreEnemigo = probar.next();	
+									if (nombreEnemigo.getNombre().equals(nombre)){
+										contador++;
+									}
+								}
+								if (contador <= 0) {
+									System.out.println("El enemigo ya existe");
+								}
 
-						}
-
-						} while (respuesta.equals("No"));
+						} while (contador <= 0);
 						
 						do {
 							System.out.println("La clase contra el cual es debil: ");
