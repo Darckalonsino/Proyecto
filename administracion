@@ -6,18 +6,18 @@ import java.util.Scanner;
 
 public class administracion {
 	String respuesta="Si", clase, fisico1, fisico2, magico1, magico2, eficacia, nombre="", equip1, equip2;
-	boolean victoria=false, guantes=false, sombrero=false, pechera=false, tunica=false, existe= false;
+	boolean victoria=false, guantes=false, sombrero=false, pechera=false, tunica=false;
 	int hp =0, opcion, contador=0;
 	Scanner sc = new Scanner(System.in);
-	ArrayList <personaje> arrayPersonaje = new ArrayList<personaje>();
-	ArrayList <enemigos> arrayEnemigos = new ArrayList<enemigos>();
+	
 	personaje p1;
-	enemigos e1;
-	enemigos e2;
-	enemigos e3;
-	enemigos e4;
-	protected void CrearPersonaje(String fisicos[], String magicos[], String eficacias[]) {
-		System.out.println("Cada personaje creado solo puede tener 2 atributos fisicos, 2 atributos magicos y 1 efectividad");
+	enemigos e1 = new enemigos(nombre, hp);
+	enemigos e2 = new enemigos(nombre, hp);
+	enemigos e3 = new enemigos(nombre, hp);
+	enemigos e4 = new enemigos();
+	
+	protected void CrearPersonaje(String fisicos[], String magicos[], String eficacias[], ArrayList <personaje> arrayPersonaje) {
+		System.out.println("Cada personaje creado solo puede tener 2 atributos fisicos, 2 atributos magicos y 1 efectividad");		
 		
 		do {
 		contador = 0;
@@ -115,7 +115,6 @@ public class administracion {
 		Titulos(eficacias);
 		sc.nextLine(); //Este next es para corregir un error al recoger la variable del titulo
 		eficacia = sc.nextLine();
-		//System.out.println(eficacias);
 		/*for (int i = 0; i < eficacias.length;i++) {
 				if (eficacia.equals(eficacias[i])) {
 					contador++;
@@ -123,10 +122,12 @@ public class administracion {
 			}
 			if (contador == 1) {
 				respuesta = "Si";
+				System.out.println(eficacia);
 			}
 			else if (contador != 1) {
 				System.out.println("Indique un atributo existente");
 				respuesta = "No";
+				System.out.println(eficacia);
 			}
 		} while (contador != 1);*/
 		//No llega a funcionar del todo bien, al repetir el bucle por segunda vez el programa se para
@@ -179,7 +180,7 @@ public class administracion {
 		}
 	}
 	
-	protected void VerPersonajes() {
+	protected void VerPersonajes(ArrayList <personaje> arrayPersonaje) {
 		Iterator<personaje> verPer = arrayPersonaje.iterator();
 		while(verPer.hasNext()) {
 			personaje nombrePersonaje = verPer.next();
@@ -196,43 +197,20 @@ public class administracion {
 		}
 	}
 	
-	protected void EnemigosPredefinidos() {
-		e4 = new enemigos();
-		//Creacion de enemigos
-		e1 = new enemigos(nombre, hp);
+	protected void EnemigosPredefinidos(ArrayList <enemigos> arrayEnemigos) {
 		e1.setNombre("Slime Gigante");// Debilidades - Agilidad, Velocidad, Gravitacion, Petrificacion 
 		e1.setHp(500);				 // Ventajas - Fuerza, Astucia , Ilusionismo, Espiritualismo
 		arrayEnemigos.add(e1);	
-		e2 = new enemigos(nombre, hp);
 		e2.setNombre("Jinete Fantasma"); // Debilidades - Velocidad, Agilidad, Ilusionismo, Espiritualismo
 		e2.setHp(1000);					// Ventajas - Fuerza, Astucia, Petrificacion, Gravitacion
 		arrayEnemigos.add(e2);		
-		e3 = new enemigos(nombre, hp);
 		e3.setNombre("Dragon Ilusorio");// Debilidades -  Fuerza, Astucia, Agilidad, Petrificacion, Gravitacion
 		e3.setHp(1500);				   // Ventajas - Velocidad, Agilidad, Ilusionismo, Espiritualismo
-		arrayEnemigos.add(e3);	
-		existe = true;
+		arrayEnemigos.add(e3);
 	}
 	
-	protected void Mazmorra() {
+	protected void Mazmorra(ArrayList <enemigos> arrayEnemigos, ArrayList <personaje> arrayPersonaje) {
 		String enemigo="", EF1, EF2, EM1, EM2;
-		if (existe == false) {
-			e4 = new enemigos();
-			//Creacion de enemigos
-			e1 = new enemigos(nombre, hp);
-			e1.setNombre("Slime Gigante");// Debilidades - Agilidad, Velocidad, Gravitacion, Petrificacion 
-			e1.setHp(500);				 // Ventajas - Fuerza, Astucia , Ilusionismo, Espiritualismo
-			arrayEnemigos.add(e1);	
-			e2 = new enemigos(nombre, hp);
-			e2.setNombre("Jinete Fantasma"); // Debilidades - Velocidad, Agilidad, Ilusionismo, Espiritualismo
-			e2.setHp(1000);					// Ventajas - Fuerza, Astucia, Petrificacion, Gravitacion
-			arrayEnemigos.add(e2);		
-			e3 = new enemigos(nombre, hp);
-			e3.setNombre("Dragon Ilusorio");// Debilidades -  Fuerza, Astucia, Agilidad, Petrificacion, Gravitacion
-			e3.setHp(1500);				   // Ventajas - Velocidad, Agilidad, Ilusionismo, Espiritualismo
-			arrayEnemigos.add(e3);		  
-		}
-		respuesta = "No";
 		
 		if (victoria == true) {
 			do {
@@ -260,112 +238,88 @@ public class administracion {
 					personaje nombrePer = probar.next();	
 					if (nombrePer.getNombre().equals(nombre)){
 						contador++;
+						//Recoger Stadisticas del heroe
+						System.out.println("Has escogido al heroe " + nombrePer.getNombre());
+						fisico1 = nombrePer.getFisico1();
+						fisico2 = nombrePer.getFisico2();
+						magico1 = nombrePer.getMagico1();
+						magico2 = nombrePer.getMagico2();
+						eficacia = nombrePer.getEficacia();
+						if (nombrePer instanceof luchador) {
+							pechera = ((luchador)nombrePer).isPechera();
+							guantes = ((luchador)nombrePer).isGuantes();
+						}
+						else if (nombrePer instanceof hechicero) {
+							tunica = ((hechicero)nombrePer).isTunica();
+							sombrero = ((hechicero)nombrePer).isSombrero();
+						}
+						Iterator<enemigos> itEnemigos = arrayEnemigos.iterator();
+						while(itEnemigos.hasNext() && respuesta.equals("Si")) {
+							enemigos nombreEnemigo = itEnemigos.next();
+							hp = nombreEnemigo.getHp();
+							System.out.println(nombreEnemigo.getNombre());
+							//COMBATE CONTRA EL PRIMER JEFE
+							while (respuesta.equals("Si") && hp > 0 && nombreEnemigo.getNombre().equals("Slime Gigante")) {
+							
+									hp = nombreEnemigo.CombateSlime(nombre, fisico1, fisico2, magico1, magico2, eficacia, hp, guantes, pechera, tunica, sombrero);
+									respuesta = FinalizarCombate(respuesta, hp, nombreEnemigo, sc);
+							 //Fin Combate Slime
+							} 
+							//COMBATE CONTRA EL SEGUNDO JEFE
+							while (respuesta.equals("Si") && hp > 0 && nombreEnemigo.getNombre().equals("Jinete Fantasma")) {
+
+								hp = nombreEnemigo.CombateJinete(nombre, fisico1, fisico2, magico1, magico2, eficacia, hp, guantes, pechera, tunica, sombrero);
+								respuesta = FinalizarCombate(respuesta, hp, nombreEnemigo, sc);
+						 //Fin Combate Jinete
+							}
+							//COMBATE CONTRA EL TERCER JEFE
+							while (respuesta.equals("Si") && hp > 0 && nombreEnemigo.getNombre().equals("Dragon Ilusorio")){
+								hp = nombreEnemigo.CombateDragon(nombre, fisico1, fisico2, magico1, magico2, eficacia, hp, guantes, pechera, tunica, sombrero);
+								respuesta = FinalizarCombate(respuesta, hp, nombreEnemigo, sc);
+							//Fin Combate Dragon
+							}
+							if (victoria == true) {
+								while (respuesta.equals("Si") && hp > 0 && nombreEnemigo.getNombre().equals(enemigo)){
+									
+										if (nombreEnemigo.getNombre().equals(enemigo)){
+											enemigo = nombreEnemigo.getNombre();
+											EF1 = nombreEnemigo.getFisico1();
+											EF2 = nombreEnemigo.getFisico2();
+											EM1 = nombreEnemigo.getMagico1();
+											EM2 = nombreEnemigo.getMagico2();
+											equip1 = nombreEnemigo.getEquip1();
+											equip2 = nombreEnemigo.getEquip2();
+											hp = nombreEnemigo.getHp();
+											hp = nombreEnemigo.CombateExtra(nombre, fisico1, fisico2, magico1, magico2, hp, guantes, pechera, tunica, sombrero, EF1, EF2, EM1, EM2, enemigo, equip1, equip2);
+											respuesta = FinalizarCombate(respuesta, hp, nombreEnemigo, sc);
+										}
+										else {
+											System.out.println("El enemigo no existe");
+											respuesta = "No";
+										}
+								}
+							}
+							if (nombreEnemigo.getNombre().equals("Dragon Ilusorio") && hp <= 0) {
+								System.out.println("Has derrotado a todos los enemigos de la mazmorra");
+								victoria = true;
+							}
+							//COMBATE CONTRA ENEMIGO EXTRA
+							
+						}//Fin Combates contra enemigos
 					}
+
 				}
 				if (contador <= 0) {
 					System.out.println("El personaje no existe");
 				}
-
 		} while (contador <= 0);
-		
-		//Recoger Stadisticas del heroe
-		Iterator<personaje> itPersonaje = arrayPersonaje.iterator();
-		while(itPersonaje.hasNext()) {
-			personaje nombrePersonaje = itPersonaje.next();
-			if(nombrePersonaje.getNombre().equals(nombre)) {
-				System.out.println("Has escogido al heroe " + nombrePersonaje.getNombre());
-				nombre = nombrePersonaje.getNombre();
-				fisico1 = nombrePersonaje.getFisico1();
-				fisico2 = nombrePersonaje.getFisico2();
-				magico1 = nombrePersonaje.getMagico1();
-				magico2 = nombrePersonaje.getMagico2();
-				eficacia = nombrePersonaje.getEficacia();
-				if (nombrePersonaje instanceof luchador) {
-					pechera = ((luchador)nombrePersonaje).isPechera();
-					guantes = ((luchador)nombrePersonaje).isGuantes();
-				}
-				else if (nombrePersonaje instanceof hechicero) {
-					tunica = ((hechicero)nombrePersonaje).isTunica();
-					sombrero = ((hechicero)nombrePersonaje).isSombrero();
-				}
-				//Encuentro con enemigos
-				Iterator<enemigos> itEnemigos = arrayEnemigos.iterator();
-				while(itEnemigos.hasNext() && respuesta.equals("Si")) {
-					enemigos nombreEnemigo = itEnemigos.next();
-					hp = nombreEnemigo.getHp();
-					//COMBATE CONTRA EL PRIMER JEFE
-					while (respuesta.equals("Si") && hp > 0 && nombreEnemigo.getNombre().equals("Slime Gigante")) {
-					
-							hp = nombreEnemigo.CombateSlime(nombre, fisico1, fisico2, magico1, magico2, eficacia, hp, guantes, pechera, tunica, sombrero);
-							respuesta = FinalizarCombate(respuesta, hp, nombreEnemigo, sc);
-					 //Fin Combate Slime
-					} 
-					//COMBATE CONTRA EL SEGUNDO JEFE
-					while (respuesta.equals("Si") && hp > 0 && nombreEnemigo.getNombre().equals("Jinete Fantasma")) {
-
-						hp = nombreEnemigo.CombateJinete(nombre, fisico1, fisico2, magico1, magico2, eficacia, hp, guantes, pechera, tunica, sombrero);
-						respuesta = FinalizarCombate(respuesta, hp, nombreEnemigo, sc);
-				 //Fin Combate Jinete
-					}
-					//COMBATE CONTRA EL TERCER JEFE
-					while (respuesta.equals("Si") && hp > 0 && nombreEnemigo.getNombre().equals("Dragon Ilusorio")){
-						hp = nombreEnemigo.CombateDragon(nombre, fisico1, fisico2, magico1, magico2, eficacia, hp, guantes, pechera, tunica, sombrero);
-						respuesta = FinalizarCombate(respuesta, hp, nombreEnemigo, sc);
-					//Fin Combate Dragon
-					}
-					if (victoria == true) {
-						while (respuesta.equals("Si") && hp > 0 && nombreEnemigo.getNombre().equals(enemigo)){
-							
-								if (nombreEnemigo.getNombre().equals(enemigo)){
-									enemigo = nombreEnemigo.getNombre();
-									EF1 = nombreEnemigo.getFisico1();
-									EF2 = nombreEnemigo.getFisico2();
-									EM1 = nombreEnemigo.getMagico1();
-									EM2 = nombreEnemigo.getMagico2();
-									equip1 = nombreEnemigo.getEquip1();
-									equip2 = nombreEnemigo.getEquip2();
-									hp = nombreEnemigo.getHp();
-									hp = nombreEnemigo.CombateExtra(nombre, fisico1, fisico2, magico1, magico2, hp, guantes, pechera, tunica, sombrero, EF1, EF2, EM1, EM2, enemigo, equip1, equip2);
-									respuesta = FinalizarCombate(respuesta, hp, nombreEnemigo, sc);
-								}
-								else {
-									System.out.println("El enemigo no existe");
-									respuesta = "No";
-								}
-						}
-					}
-					if (nombreEnemigo.getNombre().equals("Dragon Ilusorio") && hp <= 0) {
-						System.out.println("Has derrotado a todos los enemigos de la mazmorra");
-						victoria = true;
-					}
-					//COMBATE CONTRA ENEMIGO EXTRA
-					
-				}//Fin Combates contra enemigos
-			}//Fin personajes
-}//Fin while mazmorra
 		
 		contador = 0;
 		respuesta = "Si";
 	}
 	
-	protected void CrearEnemigo(String fisicos[], String magicos[], String eficacias[]) {
+	protected void CrearEnemigo(String fisicos[], String magicos[], String eficacias[], ArrayList <enemigos> arrayEnemigos) {
 		String enemigo="" , opcion2;
-		if (existe == false) {
-			e4 = new enemigos();
-			//Creacion de enemigos
-			e1 = new enemigos(nombre, hp);
-			e1.setNombre("Slime Gigante");// Debilidades - Agilidad, Velocidad, Gravitacion, Petrificacion 
-			e1.setHp(500);				 // Ventajas - Fuerza, Astucia , Ilusionismo, Espiritualismo
-			arrayEnemigos.add(e1);	
-			e2 = new enemigos(nombre, hp);
-			e2.setNombre("Jinete Fantasma"); // Debilidades - Velocidad, Agilidad, Ilusionismo, Espiritualismo
-			e2.setHp(1000);					// Ventajas - Fuerza, Astucia, Petrificacion, Gravitacion
-			arrayEnemigos.add(e2);		
-			e3 = new enemigos(nombre, hp);
-			e3.setNombre("Dragon Ilusorio");// Debilidades -  Fuerza, Astucia, Agilidad, Petrificacion, Gravitacion
-			e3.setHp(1500);				   // Ventajas - Velocidad, Agilidad, Ilusionismo, Espiritualismo
-			arrayEnemigos.add(e3);	
-		}
 		if (victoria == false) {
 			System.out.println("Tienes que derrotar a todos los enemigos de la mazmorra par acceder a esta opcion");
 		}
