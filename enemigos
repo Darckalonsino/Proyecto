@@ -3,12 +3,25 @@ package juego;
 public class enemigos extends personaje{
 	
 	protected int hp;
+	protected String equip1, equip2;
+	
+	
+	protected enemigos() {
+		
+	}
 	
 	protected enemigos(String nombre, int hp) {
 		super(nombre);
 		this.hp = hp;
 }
 
+	protected enemigos(String nombre, String fisico1, String fisico2, String magico1, String magico2, String equip1, String equip2, int hp) {
+		super(nombre, fisico1, fisico2, magico1, magico2);
+		this.hp = hp;
+		this.equip1 = equip1;
+		this.equip2 = equip2;
+}
+	
 	protected int getHp() {
 		return hp;
 	}
@@ -16,6 +29,24 @@ public class enemigos extends personaje{
 	protected void setHp(int hp) {
 		this.hp = hp;
 	}
+	
+	
+	protected String getEquip1() {
+		return equip1;
+	}
+
+	protected void setEquip1(String equip1) {
+		this.equip1 = equip1;
+	}
+
+	protected String getEquip2() {
+		return equip2;
+	}
+
+	protected void setEquip2(String equip2) {
+		this.equip2 = equip2;
+	}
+
 	//Todas las stats tiene 1 de daño base
 	//Las clase multiplica por 3 el atributo principal y por 2 el secundario
 	//La clase tambien afecta al orden de aplicacion de los multiplicadores
@@ -65,7 +96,7 @@ public class enemigos extends personaje{
 			}
 			//Aumento de daño de equip2 contra Slime
 			if (pechera == true) {
-				dmgDone = (dmgfisico1 + dmgfisico2 + dmgmagico1 + dmgmagico2)*4;
+				dmgDone = (dmgfisico1 + dmgfisico2 + dmgmagico1 + dmgmagico2)*3;
 			}
 			else if (tunica == true) {
 				dmgDone = (dmgfisico1 + dmgfisico2 + dmgmagico1 + dmgmagico2)*4;
@@ -218,6 +249,57 @@ public class enemigos extends personaje{
 		return hp;
 		// Debilidades -  Fuerza, Astucia, Agilidad, Petrificacion, Gravitacion
 		// Ventajas - Velocidad, Agilidad, Ilusionismo, Espiritualismo
+	}
+	
+	protected int CombateExtra(String nombre, String fisico1, String fisico2, String magico1, String magico2, int hp, boolean guantes, boolean pechera, boolean tunica, boolean sombrero, String EM1, String EM2, String EF1, String EF2, String enemigo, String equip1, String equip2) {
+		System.out.println("Enemigo: " + enemigo);
+		System.out.println("Vida: " + hp);
+		int dmgDone=0;
+		int dmgfisico1=1;
+		int dmgfisico2=1;
+		int dmgmagico1=1;
+		int dmgmagico2=1;
+		if (equip1.equals("Si")) {
+			dmgfisico1 = dmgfisico1*2;
+			dmgfisico2 = dmgfisico2*1;
+		}
+			//Daño fisico1 
+			if (EF1.equals("Agilidad") || EF1.equals("Velocidad")) {
+				dmgfisico1 = dmgfisico1 * 3;
+			}
+			else if (EF1.equals("Fuerza") || EF1.equals("Astucia")) {
+				dmgfisico1 = dmgfisico1 / 3;
+			}
+			//Daño fisico2
+			if (EF2.equals("Agilidad") || EF2.equals("Velocidad")) {
+				dmgfisico2 = dmgfisico2 * 2;
+			}
+			else if (EF2.equals("Fuerza") || EF2.equals("Astucia")) {
+				dmgfisico2 = dmgfisico2 / 2;
+			}
+			//Daño magico1
+			if (EM1.equals("Gravitacion") || EM1.equals("Petrificacion")) {
+				dmgmagico1 = dmgmagico1 * 3;
+			}
+			else if (EM1.equals("Espiritualismo") || EM1.equals("Ilusionismo")) {
+				dmgmagico1 = dmgmagico1 / 3;
+			}
+			//Daño magico2
+			if (EM2.equals("Gravitacion") || EM2.equals("Petrificacion")) {
+				dmgmagico2 = dmgmagico2 * 2;
+			}
+			else if (EM2.equals("Espiritualismo") || EM2.equals("Ilusionismo")) {
+				dmgmagico2 = dmgmagico2 / 2;
+			}
+			//Aumento de daño de equip2 contra Slime
+			if (equip2.equals("Si")) {
+				dmgDone = (dmgfisico1 + dmgfisico2 + dmgmagico1 + dmgmagico2)*4;
+			}
+				hp = hp - dmgDone;
+			System.out.println("Daño realizado: " + dmgDone);
+			System.out.println("Vida restante: " + hp);
+		
+		return hp;
 	}
 	
 }
