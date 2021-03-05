@@ -1,6 +1,6 @@
 package juego;
 
-public class personaje {
+public abstract class personaje {
 	
 	protected String nombre, fisico1, fisico2, magico1, magico2, eficacia;
 
