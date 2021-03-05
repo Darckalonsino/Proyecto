@@ -199,13 +199,13 @@ public class administracion {
 	
 	protected void EnemigosPredefinidos(ArrayList <enemigos> arrayEnemigos) {
 		e1.setNombre("Slime Gigante");// Debilidades - Agilidad, Velocidad, Gravitacion, Petrificacion 
-		e1.setHp(0);				 // Ventajas - Fuerza, Astucia , Ilusionismo, Espiritualismo
+		e1.setHp(500);				 // Ventajas - Fuerza, Astucia , Ilusionismo, Espiritualismo
 		arrayEnemigos.add(e1);	
 		e2.setNombre("Jinete Fantasma"); // Debilidades - Velocidad, Agilidad, Ilusionismo, Espiritualismo
-		e2.setHp(0);					// Ventajas - Fuerza, Astucia, Petrificacion, Gravitacion
+		e2.setHp(1000);					// Ventajas - Fuerza, Astucia, Petrificacion, Gravitacion
 		arrayEnemigos.add(e2);		
 		e3.setNombre("Dragon Ilusorio");// Debilidades -  Fuerza, Astucia, Agilidad, Petrificacion, Gravitacion
-		e3.setHp(10);				   // Ventajas - Velocidad, Agilidad, Ilusionismo, Espiritualismo
+		e3.setHp(1500);				   // Ventajas - Velocidad, Agilidad, Ilusionismo, Espiritualismo
 		arrayEnemigos.add(e3);
 	}
 	
