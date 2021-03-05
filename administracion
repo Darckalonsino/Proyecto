@@ -226,8 +226,13 @@ public class administracion {
 					}
 					if (contador <= 0) {
 						System.out.println("El enemigo no existe o no tiene suficiente HP");
+						System.out.println("¿Desea volver al menu principal? Si o No");
+						respuesta = sc.next();
+						if (respuesta.equals("Si")) {
+							contador = 1;
+						}
 					}
-			} while (contador <= 0);
+			} while (contador != 1);
 		}
 		
 		do {
@@ -258,7 +263,6 @@ public class administracion {
 						while(itEnemigos.hasNext() && respuesta.equals("Si")) {
 							enemigos nombreEnemigo = itEnemigos.next();
 							hp = nombreEnemigo.getHp();
-							System.out.println(nombreEnemigo.getNombre());
 							//COMBATE CONTRA EL PRIMER JEFE
 							while (respuesta.equals("Si") && hp > 0 && nombreEnemigo.getNombre().equals("Slime Gigante")) {
 							
@@ -521,13 +525,13 @@ public class administracion {
 							
 							
 						}
-						if (contador < 0) {
-							System.out.println("El enemigo no existe");
-						}
+						
 
 					}
-						
-					} while (contador < 0);
+					if (contador <= 0) {
+						System.out.println("El enemigo no existe");
+					}	
+					} while (contador > 0);
 				break;
 				
 				default:
