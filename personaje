@@ -2,9 +2,9 @@ package juego;
 
 public class personaje {
 	
-	protected String nombre, fisico1, fisico2, magico1, magico2, eficacia, daño;
+	protected String nombre, fisico1, fisico2, magico1, magico2, eficacia;
 
-	protected personaje(String nombre, String fisico1, String fisico2, String magico1, String magico2, String eficacia, int dmg) {
+	protected personaje(String nombre, String fisico1, String fisico2, String magico1, String magico2, String eficacia) {
 		this.nombre = nombre;
 		this.fisico1 = fisico1;
 		this.fisico2 = fisico2;
@@ -13,16 +13,20 @@ public class personaje {
 		this.eficacia = eficacia;
 	}
 	
-	protected personaje() {
-		
-	}
 	
-	protected String getDmg() {
-		return daño;
+	
+	public personaje(String nombre, String fisico1, String fisico2, String magico1, String magico2) {
+		this.nombre = nombre;
+		this.fisico1 = fisico1;
+		this.fisico2 = fisico2;
+		this.magico1 = magico1;
+		this.magico2 = magico2;
 	}
 
-	protected void setDmg(String daño) {
-		this.daño = daño;
+
+
+	protected personaje() {
+		
 	}
 
 	protected personaje(String nombre) {
