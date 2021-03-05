@@ -1,5 +1,6 @@
 package juego;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 //System.out.println();
 
@@ -7,10 +8,9 @@ public class principal {
 
 	public static void main(String[] args) {
 			int opcion;
-			String fisicos[], magicos[], eficacias[];
+			String fisicos[], magicos[], eficacias[], respuesta = "Si";
 			Scanner sc = new Scanner(System.in);
 			administracion admin = new administracion();
-			
 			
 			//Creacion de habilidades
 			fisicos = new String [4];
@@ -29,7 +29,10 @@ public class principal {
 			eficacias [0] = "Caballero de la corrosion";
 			eficacias [1] = "Guardian de lo intangible";
 			eficacias [2] = "Villano delirante";
-			admin.EnemigosPredefinidos();
+			ArrayList <personaje> arrayPersonaje = new ArrayList<personaje>();
+			ArrayList <enemigos> arrayEnemigos = new ArrayList<enemigos>();
+			
+			admin.EnemigosPredefinidos(arrayEnemigos);
 			
 		do {
 			
@@ -46,16 +49,16 @@ public class principal {
 			
 			switch (opcion) {
 				case 1: 
-					admin.CrearPersonaje(fisicos, magicos, eficacias);
+					admin.CrearPersonaje(fisicos, magicos, eficacias, arrayPersonaje);
 				break;
 				case 2:
-					admin.VerPersonajes();
+					admin.VerPersonajes(arrayPersonaje);
 				break;
 				case 3:
-					admin.Mazmorra();
+					admin.Mazmorra(arrayEnemigos, arrayPersonaje);
 				break;
 				case 4:
-					admin.CrearEnemigo(fisicos, magicos, eficacias);
+					admin.CrearEnemigo(fisicos, magicos, eficacias, arrayEnemigos);
 				break;
 				case 5:
 					admin.Instrucciones(fisicos, magicos, eficacias);
@@ -63,7 +66,7 @@ public class principal {
 				default:
 					System.out.println("Indique un valor valido");
 			}
-		} while (opcion != 0);
+		} while (respuesta.equals("Si"));
 		
 	}
 
