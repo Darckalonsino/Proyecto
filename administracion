@@ -14,7 +14,7 @@ public class administracion {
 	enemigos e1 = new enemigos(nombre, hp);
 	enemigos e2 = new enemigos(nombre, hp);
 	enemigos e3 = new enemigos(nombre, hp);
-	enemigos e4 = new enemigos();
+	enemigos e4;
 	
 	protected void CrearPersonaje(String fisicos[], String magicos[], String eficacias[], ArrayList <personaje> arrayPersonaje) {
 		System.out.println("Cada personaje creado solo puede tener 2 atributos fisicos, 2 atributos magicos y 1 efectividad");		
@@ -110,7 +110,7 @@ public class administracion {
 		
 		//Recoger atributos titulo
 		//do {
-			contador = 0;
+			//contador = 0;
 		System.out.println("Elija su titulo");
 		Titulos(eficacias);
 		sc.nextLine(); //Este next es para corregir un error al recoger la variable del titulo
