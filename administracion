@@ -199,13 +199,13 @@ public class administracion {
 	
 	protected void EnemigosPredefinidos(ArrayList <enemigos> arrayEnemigos) {
 		e1.setNombre("Slime Gigante");// Debilidades - Agilidad, Velocidad, Gravitacion, Petrificacion 
-		e1.setHp(500);				 // Ventajas - Fuerza, Astucia , Ilusionismo, Espiritualismo
+		e1.setHp(0);				 // Ventajas - Fuerza, Astucia , Ilusionismo, Espiritualismo
 		arrayEnemigos.add(e1);	
 		e2.setNombre("Jinete Fantasma"); // Debilidades - Velocidad, Agilidad, Ilusionismo, Espiritualismo
-		e2.setHp(1000);					// Ventajas - Fuerza, Astucia, Petrificacion, Gravitacion
+		e2.setHp(0);					// Ventajas - Fuerza, Astucia, Petrificacion, Gravitacion
 		arrayEnemigos.add(e2);		
 		e3.setNombre("Dragon Ilusorio");// Debilidades -  Fuerza, Astucia, Agilidad, Petrificacion, Gravitacion
-		e3.setHp(1500);				   // Ventajas - Velocidad, Agilidad, Ilusionismo, Espiritualismo
+		e3.setHp(10);				   // Ventajas - Velocidad, Agilidad, Ilusionismo, Espiritualismo
 		arrayEnemigos.add(e3);
 	}
 	
@@ -214,17 +214,18 @@ public class administracion {
 		
 		if (victoria == true) {
 			do {
+				contador = 0;
 				System.out.println("Indica el nombre del enemigo: ");
 				enemigo = sc.next();
 					Iterator<enemigos> probar = arrayEnemigos.iterator();
 					while(probar.hasNext()) {
 						enemigos nombreEnemigo = probar.next();	
-						if (nombreEnemigo.getNombre().equals(nombre)){
+						if (nombreEnemigo.getNombre().equals(nombre) && nombreEnemigo.getHp() > 0){
 							contador++;
 						}
 					}
 					if (contador <= 0) {
-						System.out.println("El personaje ya existe");
+						System.out.println("El enemigo no existe o no tiene suficiente HP");
 					}
 			} while (contador <= 0);
 		}
@@ -340,14 +341,12 @@ public class administracion {
 								while(probar.hasNext()) {
 									enemigos nombreEnemigo = probar.next();	
 									if (nombreEnemigo.getNombre().equals(nombre)){
+										System.out.println("El enemigo ya existe");
 										contador++;
 									}
 								}
-								if (contador <= 0) {
-									System.out.println("El enemigo ya existe");
-								}
 
-						} while (contador <= 0);
+						} while (contador > 0);
 						
 						do {
 							System.out.println("La clase contra el cual es debil: ");
@@ -443,13 +442,14 @@ public class administracion {
 				case 2:
 				
 					do {
+						contador = 0;
 						System.out.print("Indique el nombre del enemigo que quiere modificar: ");
 						enemigo = sc.next();
 					Iterator<enemigos> probar = arrayEnemigos.iterator();
 					while(probar.hasNext()) {
 						enemigos nombreEne = probar.next();	
 						if (nombreEne.getNombre().equals(enemigo)){
-							
+							contador++;
 							System.out.println("¿Que atributo desea modificar?");
 							System.out.println("HP / Debilidades / Otros");
 							opcion2 = sc.next();
@@ -520,16 +520,14 @@ public class administracion {
 							
 							
 							
-							respuesta = "Si";
 						}
-						else {
+						if (contador < 0) {
 							System.out.println("El enemigo no existe");
-							respuesta = "No";
 						}
 
 					}
 						
-					} while (respuesta.equals("No"));
+					} while (contador < 0);
 				break;
 				
 				default:
